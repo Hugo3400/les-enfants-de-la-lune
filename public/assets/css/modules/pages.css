@@ -131,6 +131,24 @@
 	gap: 1rem;
 }
 
+.contact-field-group {
+	padding: 0.82rem;
+	border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
+	border-radius: var(--radius-md);
+	background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+}
+
+.contact-field-group > label {
+	margin: 0;
+}
+
+.contact-field-group .contact-form-row > label {
+	padding: 0.72rem;
+	border: 1px solid color-mix(in srgb, var(--color-primary) 16%, var(--color-border));
+	border-radius: 10px;
+	background: color-mix(in srgb, var(--color-primary) 2%, var(--color-surface));
+}
+
 .contact-form-row {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -150,7 +168,7 @@
 	width: 100%;
 	border-radius: 10px;
 	border: 1px solid var(--color-border);
-	background: color-mix(in srgb, var(--color-surface) 92%, #fff);
+	background: color-mix(in srgb, #ffffff 96%, var(--color-surface));
 	color: var(--color-text);
 	padding: 0.65rem 0.75rem;
 	font: inherit;
@@ -172,6 +190,8 @@
 
 .contact-actions-row {
 	margin-top: 0.2rem;
+	padding-top: 0.4rem;
+	border-top: 1px solid color-mix(in srgb, var(--color-primary) 16%, var(--color-border));
 }
 
 .contact-actions-row button {
@@ -204,6 +224,11 @@
 .contact-form-card .is-invalid {
 	border-color: color-mix(in srgb, #c0392b 62%, var(--color-border));
 	box-shadow: 0 0 0 3px color-mix(in srgb, #c0392b 14%, transparent);
+}
+
+.contact-form-card input::placeholder,
+.contact-form-card textarea::placeholder {
+	color: color-mix(in srgb, var(--color-text-muted) 88%, #67758a);
 }
 
 .contact-submit {
@@ -262,6 +287,10 @@
 @media (max-width: 720px) {
 	.contact-page {
 		gap: 0.85rem;
+	}
+
+	.contact-field-group {
+		padding: 0.7rem;
 	}
 
 	.contact-form-row {
