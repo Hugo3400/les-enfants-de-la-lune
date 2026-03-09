@@ -27,6 +27,13 @@
                placeholder="Ex : Lundi 18h · Accueil et orientation">
       </label>
 
+      <label>
+        Lien d'inscription (optionnel)
+        <input type="url" name="registration_url" value="<?= htmlspecialchars((string) ($ev['registration_url'] ?? '')) ?>"
+               placeholder="https://...">
+        <small style="color:#8a8a8a;">Si renseigné, ce lien sera utilisé pour l'inscription. Sinon, une demande interne sera envoyée.</small>
+      </label>
+
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
         <label>
           Date

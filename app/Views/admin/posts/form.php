@@ -27,6 +27,18 @@
       </label>
 
       <label>
+        Thème
+        <select name="theme">
+          <?php $currentTheme = (string) ($post['theme'] ?? 'general'); ?>
+          <?php foreach (($themes ?? []) as $themeKey => $themeLabel): ?>
+            <option value="<?= htmlspecialchars((string) $themeKey) ?>" <?= $currentTheme === (string) $themeKey ? 'selected' : '' ?>>
+              <?= htmlspecialchars((string) $themeLabel) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+
+      <label>
         Contenu
         <textarea name="content" rows="12" id="postContent" required><?= htmlspecialchars((string) ($post['content'] ?? '')) ?></textarea>
       </label>
