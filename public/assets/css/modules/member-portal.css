@@ -561,6 +561,14 @@
   line-height: 1.5;
 }
 
+.member-event-actions {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
 /* ─── Actualités page ─── */
 .member-posts-grid {
   display: grid;
@@ -588,6 +596,45 @@
   font-size: .85rem;
   line-height: 1.5;
   flex: 1;
+}
+
+.member-post-theme {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 600;
+  background: #efedf9;
+  color: #6957d8;
+}
+
+.member-theme-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+.member-theme-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #ddd7f5;
+  color: #4a3fa6;
+  background: #fff;
+  text-decoration: none;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.member-theme-pill:hover,
+.member-theme-pill.is-active {
+  border-color: #6957d8;
+  color: #6957d8;
+  background: #f3f1fc;
 }
 
 /* ─── Auth override for member login ─── */

@@ -118,6 +118,7 @@ final class Database
                     slug VARCHAR(191) NOT NULL UNIQUE,
                     excerpt TEXT NULL,
                     content LONGTEXT NOT NULL,
+                    theme VARCHAR(40) NOT NULL DEFAULT "general",
                     is_published TINYINT(1) NOT NULL DEFAULT 1,
                     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -183,6 +184,7 @@ final class Database
                     description VARCHAR(255) NULL,
                     event_date DATE NULL,
                     event_time VARCHAR(10) NULL,
+                    registration_url VARCHAR(255) NULL,
                     is_visible TINYINT(1) NOT NULL DEFAULT 1,
                     sort_order INT NOT NULL DEFAULT 0,
                     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -244,6 +246,7 @@ final class Database
                     slug TEXT NOT NULL UNIQUE,
                     excerpt TEXT,
                     content TEXT NOT NULL,
+                    theme TEXT NOT NULL DEFAULT "general",
                     is_published INTEGER NOT NULL DEFAULT 1,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -305,6 +308,7 @@ final class Database
                     description TEXT,
                     event_date TEXT,
                     event_time TEXT,
+                    registration_url TEXT,
                     is_visible INTEGER NOT NULL DEFAULT 1,
                     sort_order INTEGER NOT NULL DEFAULT 0,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
