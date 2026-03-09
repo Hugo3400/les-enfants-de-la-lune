@@ -7,24 +7,24 @@
       <a class="mini-link" href="/">← Retour au site</a>
     </div>
 
-    <form method="post" action="/espace-membre/connexion" class="form-grid auth-form">
-      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
+    <div class="member-auth-form-wrap">
+      <form method="post" action="/espace-membre/connexion" class="form-grid auth-form">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
 
-      <label>
-        Email
-        <input type="email" name="email" placeholder="votre@email.fr" required>
-      </label>
+        <label>
+          Email
+          <input type="email" name="email" placeholder="votre@email.fr" required>
+        </label>
 
-      <label>
-        Mot de passe
-        <input type="password" name="password" placeholder="••••••••" required>
-      </label>
+        <label>
+          Mot de passe
+          <input type="password" name="password" placeholder="••••••••" required>
+        </label>
 
-      <button type="submit">Se connecter</button>
-    </form>
+        <button type="submit">Se connecter</button>
+      </form>
 
-    <div style="text-align:center;margin-top:16px;">
-      <small style="color:#8a8a8a;">Vous n'avez pas de compte ? Contactez l'association.</small>
+      <p class="member-auth-note">Vous n'avez pas de compte ? Contactez l'association.</p>
     </div>
   </article>
 </section>

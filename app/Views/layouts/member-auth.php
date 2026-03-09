@@ -25,10 +25,10 @@
 <body class="auth-body member-auth-body">
   <main class="auth-wrap">
     <?php if ($success = \App\Core\Flash::get('success')): ?>
-      <div class="alert success" style="max-width:480px;margin:0 auto 16px;"><?= htmlspecialchars($success) ?></div>
+      <div class="alert success member-auth-alert"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
     <?php if ($error = \App\Core\Flash::get('error')): ?>
-      <div class="alert error" style="max-width:480px;margin:0 auto 16px;"><?= htmlspecialchars($error) ?></div>
+      <div class="alert error member-auth-alert"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
     <?= $content ?>
