@@ -65,6 +65,7 @@ $router->get('/espace-membre', 'App\\Controllers\\MemberPortalController@dashboa
 $router->get('/espace-membre/logement', 'App\\Controllers\\MemberPortalController@logement');
 $router->get('/espace-membre/profil', 'App\\Controllers\\MemberPortalController@profil');
 $router->get('/espace-membre/evenements', 'App\\Controllers\\MemberPortalController@evenements');
+$router->post('/espace-membre/evenements/{id}/inscription', 'App\\Controllers\\MemberPortalController@registerEvent');
 $router->get('/espace-membre/actualites', 'App\\Controllers\\MemberPortalController@actualites');
 
 $router->get('/admin', 'App\\Controllers\\AdminController@dashboard');

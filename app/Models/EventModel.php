@@ -29,12 +29,22 @@ final class EventModel
         return $row ?: null;
     }
 
+    public static function findVisibleById(int $id): ?array
+    {
+        $pdo = Database::connection();
+        $stmt = $pdo->prepare('SELECT * FROM events WHERE id = :id AND is_visible = 1 LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        $row = $stmt->fetch();
+
+        return $row ?: null;
+    }
+
     public static function create(array $data): void
     {
         $pdo = Database::connection();
         $stmt = $pdo->prepare(
-            'INSERT INTO events (title, description, event_date, event_time, is_visible, sort_order, created_at, updated_at)
-             VALUES (:title, :description, :event_date, :event_time, :is_visible, :sort_order, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
+            'INSERT INTO events (title, description, event_date, event_time, is_visible, sort_order, registration_url, created_at, updated_at)
+             VALUES (:title, :description, :event_date, :event_time, :is_visible, :sort_order, :registration_url, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
         );
         $stmt->execute([
             ':title' => $data['title'],
@@ -43,6 +53,7 @@ final class EventModel
             ':event_time' => $data['event_time'] ?: null,
             ':is_visible' => $data['is_visible'] ? 1 : 0,
             ':sort_order' => (int) ($data['sort_order'] ?? 0),
+            ':registration_url' => $data['registration_url'] ?: null,
         ]);
     }
 
@@ -53,6 +64,7 @@ final class EventModel
             'UPDATE events
              SET title = :title, description = :description, event_date = :event_date,
                  event_time = :event_time, is_visible = :is_visible, sort_order = :sort_order,
+                 registration_url = :registration_url,
                  updated_at = CURRENT_TIMESTAMP
              WHERE id = :id'
         );
@@ -64,6 +76,7 @@ final class EventModel
             ':event_time' => $data['event_time'] ?: null,
             ':is_visible' => $data['is_visible'] ? 1 : 0,
             ':sort_order' => (int) ($data['sort_order'] ?? 0),
+            ':registration_url' => $data['registration_url'] ?: null,
         ]);
     }
 

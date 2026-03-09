@@ -328,6 +328,8 @@ final class Database
 
         self::ensureAccountingColumns($pdo, $driver);
         self::ensureContactColumns($pdo, $driver);
+        self::ensurePostColumns($pdo, $driver);
+        self::ensureEventColumns($pdo, $driver);
         self::ensureUserColumns($pdo, $driver);
         self::seedAccountingAccounts($pdo, $driver);
 
@@ -397,6 +399,28 @@ final class Database
 
         self::tryExec($pdo, 'ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT "admin"');
         self::tryExec($pdo, 'ALTER TABLE users ADD COLUMN is_active INTEGER NOT NULL DEFAULT 1');
+    }
+
+    private static function ensurePostColumns(PDO $pdo, string $driver): void
+    {
+        if ($driver === 'mysql') {
+            self::tryExec($pdo, 'ALTER TABLE posts ADD COLUMN theme VARCHAR(40) NOT NULL DEFAULT "general"');
+            self::tryExec($pdo, 'CREATE INDEX idx_posts_theme ON posts (theme)');
+            return;
+        }
+
+        self::tryExec($pdo, 'ALTER TABLE posts ADD COLUMN theme TEXT NOT NULL DEFAULT "general"');
+        self::tryExec($pdo, 'CREATE INDEX IF NOT EXISTS idx_posts_theme ON posts (theme)');
+    }
+
+    private static function ensureEventColumns(PDO $pdo, string $driver): void
+    {
+        if ($driver === 'mysql') {
+            self::tryExec($pdo, 'ALTER TABLE events ADD COLUMN registration_url VARCHAR(255) NULL');
+            return;
+        }
+
+        self::tryExec($pdo, 'ALTER TABLE events ADD COLUMN registration_url TEXT');
     }
 
     private static function seedAccountingAccounts(PDO $pdo, string $driver): void
