@@ -104,6 +104,46 @@ font-size: 1.8rem;
 margin-top: 6px;
 }
 
+.admin-body .admin-priority-card {
+background: #ffffff !important;
+border-left: 4px solid #6957d8 !important;
+padding: 18px 16px;
+}
+
+.admin-body .admin-priority-card p {
+color: #7C6F93 !important;
+font-size: .88rem;
+margin: 0;
+}
+
+.admin-body .admin-priority-card strong {
+color: #1e1743 !important;
+font-size: 1.9rem;
+}
+
+.admin-body .admin-priority-card a {
+color: #6957d8 !important;
+font-weight: 700;
+}
+
+.admin-body .admin-kpi-strip {
+background: #ffffff !important;
+border: 1px solid rgba(105, 87, 216, 0.1) !important;
+}
+
+.admin-body .admin-kpi-item {
+background: #f9f7ff !important;
+border: 1px solid rgba(105, 87, 216, 0.12) !important;
+}
+
+.admin-body .admin-kpi-item span {
+color: #7C6F93 !important;
+}
+
+.admin-body .admin-kpi-item strong {
+color: #1e1743 !important;
+}
+
 /* ---- BADGE ---- */
 .admin-body .admin-badge {
 background: rgba(105, 87, 216, 0.1) !important;
