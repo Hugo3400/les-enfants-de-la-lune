@@ -85,7 +85,7 @@
         <p>Bénévoles actifs</p>
       </div>
       <div class="about-stat">
-        <strong>150+</strong>
+        <strong>30+</strong>
         <p>Personnes aidées</p>
       </div>
       <div class="about-stat">
