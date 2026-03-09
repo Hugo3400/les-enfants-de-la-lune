@@ -18,12 +18,14 @@ final class AdminPostController
             'title' => 'Nouvel article - Administration',
             'csrfToken' => Auth::csrfToken(),
             'pageStyles' => ['modules/articles.css'],
+            'themes' => PostModel::THEMES,
             'post' => [
                 'id' => null,
                 'title' => '',
                 'slug' => '',
                 'excerpt' => '',
                 'content' => '',
+                'theme' => 'general',
                 'is_published' => 1,
             ],
             'formAction' => '/admin/articles',
@@ -62,6 +64,7 @@ final class AdminPostController
             'title' => 'Modifier article - Administration',
             'csrfToken' => Auth::csrfToken(),
             'pageStyles' => ['modules/articles.css'],
+            'themes' => PostModel::THEMES,
             'post' => $post,
             'formAction' => '/admin/articles/' . (int) $post['id'] . '/update',
         ], 'admin');
@@ -131,6 +134,7 @@ final class AdminPostController
             'slug' => $slug,
             'excerpt' => $excerpt,
             'content' => $content,
+            'theme' => $this->sanitizeTheme((string) ($_POST['theme'] ?? 'general')),
             'is_published' => isset($_POST['is_published']) ? 1 : 0,
         ];
     }
@@ -151,5 +155,15 @@ final class AdminPostController
         $text = mb_strtolower($text);
         $text = preg_replace('/[^a-z0-9]+/i', '-', $text) ?? '';
         return trim($text, '-');
+    }
+
+    private function sanitizeTheme(string $theme): string
+    {
+        $theme = trim($theme);
+        if (!array_key_exists($theme, PostModel::THEMES)) {
+            return 'general';
+        }
+
+        return $theme;
     }
 }

@@ -9,6 +9,7 @@ use App\Core\Flash;
 use App\Core\View;
 use App\Models\AccountingModel;
 use App\Models\ContactMessageModel;
+use App\Models\EventModel;
 use App\Models\MemberModel;
 use App\Models\PostModel;
 use App\Models\RentalModel;
@@ -24,11 +25,14 @@ final class AdminController
         $publishedCount = (int) $pdo->query('SELECT COUNT(*) FROM posts WHERE is_published = 1')->fetchColumn();
         $draftCount = (int) $pdo->query('SELECT COUNT(*) FROM posts WHERE is_published = 0')->fetchColumn();
         $messagesCount = ContactMessageModel::countAll();
+        $messagesUnreadCount = ContactMessageModel::countUnread();
+        $upcomingEventsCount = (int) $pdo->query('SELECT COUNT(*) FROM events WHERE is_visible = 1 AND event_date IS NOT NULL AND event_date >= CURRENT_DATE')->fetchColumn();
         $rentalsAvailable = RentalModel::countByStatus('available');
         $rentalsUnavailable = RentalModel::countByStatus('unavailable');
         $totals = AccountingModel::totals();
         $membersCount = MemberModel::count();
         $membersActive = MemberModel::countActive();
+        $membersIncomplete = MemberModel::countIncompleteProfiles();
 
         View::render('admin/dashboard', [
             'title' => 'Administration - Les Enfants de la Lune',
@@ -36,11 +40,14 @@ final class AdminController
             'publishedCount' => $publishedCount,
             'draftCount' => $draftCount,
             'messagesCount' => $messagesCount,
+            'messagesUnreadCount' => $messagesUnreadCount,
+            'upcomingEventsCount' => $upcomingEventsCount,
             'rentalsAvailable' => $rentalsAvailable,
             'rentalsUnavailable' => $rentalsUnavailable,
             'accountingBalance' => (float) ($totals['balance'] ?? 0),
             'membersCount' => $membersCount,
             'membersActive' => $membersActive,
+            'membersIncomplete' => $membersIncomplete,
             'latestPosts' => PostModel::allAdmin(),
             'latestMessages' => ContactMessageModel::latest(5),
             'csrfToken' => Auth::csrfToken(),
@@ -51,9 +58,17 @@ final class AdminController
     {
         Auth::requirePermission('articles');
 
+        $selectedTheme = trim((string) ($_GET['theme'] ?? ''));
+        if ($selectedTheme !== '' && !array_key_exists($selectedTheme, PostModel::THEMES)) {
+            $selectedTheme = '';
+        }
+
         View::render('admin/articles', [
             'title' => 'Articles - Administration',
-            'posts' => PostModel::allAdmin(),
+            'posts' => PostModel::allAdmin($selectedTheme !== '' ? $selectedTheme : null),
+            'themes' => PostModel::THEMES,
+            'selectedTheme' => $selectedTheme,
+            'themeCounts' => PostModel::adminThemeCounts(),
             'csrfToken' => Auth::csrfToken(),
             'pageStyles' => ['modules/articles.css'],
         ], 'admin');

@@ -23,6 +23,14 @@
       <strong><?= (int) ($messagesCount ?? 0) ?></strong>
     </article>
     <article class="card admin-stat-card">
+      <p>Messages non lus</p>
+      <strong><?= (int) ($messagesUnreadCount ?? 0) ?></strong>
+    </article>
+    <article class="card admin-stat-card">
+      <p>Événements à venir</p>
+      <strong><?= (int) ($upcomingEventsCount ?? 0) ?></strong>
+    </article>
+    <article class="card admin-stat-card">
       <p>Locations disponibles</p>
       <strong><?= (int) ($rentalsAvailable ?? 0) ?></strong>
     </article>
@@ -41,6 +49,10 @@
     <article class="card admin-stat-card">
       <p>Membres actifs</p>
       <strong><?= (int) ($membersActive ?? 0) ?></strong>
+    </article>
+    <article class="card admin-stat-card">
+      <p>Profils incomplets</p>
+      <strong><?= (int) ($membersIncomplete ?? 0) ?></strong>
     </article>
   </div>
 

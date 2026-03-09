@@ -184,4 +184,15 @@ final class MemberModel
         $stmt->execute([':role' => $role]);
         return (int) $stmt->fetchColumn();
     }
+
+    public static function countIncompleteProfiles(): int
+    {
+        $pdo = Database::connection();
+        return (int) $pdo->query(
+            'SELECT COUNT(*) FROM members
+             WHERE TRIM(COALESCE(email, "")) = ""
+                OR TRIM(COALESCE(phone, "")) = ""
+                OR TRIM(COALESCE(joined_at, "")) = ""'
+        )->fetchColumn();
+    }
 }

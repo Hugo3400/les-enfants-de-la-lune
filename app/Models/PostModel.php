@@ -7,6 +7,13 @@ use App\Core\Database;
 
 final class PostModel
 {
+    public const THEMES = [
+        'general' => 'Général',
+        'aide' => 'Aide',
+        'administratif' => 'Administratif',
+        'temoignage' => 'Témoignage',
+    ];
+
     public static function latestPublished(int $limit = 3): array
     {
         $pdo = Database::connection();
@@ -17,16 +24,70 @@ final class PostModel
         return $stmt->fetchAll();
     }
 
-    public static function allPublished(): array
+    public static function allPublished(?string $theme = null): array
     {
         $pdo = Database::connection();
+
+        if ($theme !== null && isset(self::THEMES[$theme])) {
+            $stmt = $pdo->prepare('SELECT * FROM posts WHERE is_published = 1 AND theme = :theme ORDER BY created_at DESC');
+            $stmt->execute([':theme' => $theme]);
+            return $stmt->fetchAll();
+        }
+
         return $pdo->query('SELECT * FROM posts WHERE is_published = 1 ORDER BY created_at DESC')->fetchAll();
     }
 
-    public static function allAdmin(): array
+    public static function allAdmin(?string $theme = null): array
     {
         $pdo = Database::connection();
+
+        if ($theme !== null && isset(self::THEMES[$theme])) {
+            $stmt = $pdo->prepare('SELECT * FROM posts WHERE theme = :theme ORDER BY created_at DESC');
+            $stmt->execute([':theme' => $theme]);
+            return $stmt->fetchAll();
+        }
+
         return $pdo->query('SELECT * FROM posts ORDER BY created_at DESC')->fetchAll();
+    }
+
+    public static function publishedThemeCounts(): array
+    {
+        $pdo = Database::connection();
+        $rows = $pdo->query('SELECT theme, COUNT(*) AS total FROM posts WHERE is_published = 1 GROUP BY theme')->fetchAll();
+
+        $counts = [];
+        foreach (self::THEMES as $key => $_label) {
+            $counts[$key] = 0;
+        }
+
+        foreach ($rows as $row) {
+            $key = (string) ($row['theme'] ?? 'general');
+            if (array_key_exists($key, $counts)) {
+                $counts[$key] = (int) ($row['total'] ?? 0);
+            }
+        }
+
+        return $counts;
+    }
+
+    public static function adminThemeCounts(): array
+    {
+        $pdo = Database::connection();
+        $rows = $pdo->query('SELECT theme, COUNT(*) AS total FROM posts GROUP BY theme')->fetchAll();
+
+        $counts = [];
+        foreach (self::THEMES as $key => $_label) {
+            $counts[$key] = 0;
+        }
+
+        foreach ($rows as $row) {
+            $key = (string) ($row['theme'] ?? 'general');
+            if (array_key_exists($key, $counts)) {
+                $counts[$key] = (int) ($row['total'] ?? 0);
+            }
+        }
+
+        return $counts;
     }
 
     public static function findPublishedBySlug(string $slug): ?array
@@ -53,14 +114,15 @@ final class PostModel
     {
         $pdo = Database::connection();
         $stmt = $pdo->prepare(
-            'INSERT INTO posts (title, slug, excerpt, content, is_published, created_at, updated_at)
-             VALUES (:title, :slug, :excerpt, :content, :is_published, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
+            'INSERT INTO posts (title, slug, excerpt, content, theme, is_published, created_at, updated_at)
+             VALUES (:title, :slug, :excerpt, :content, :theme, :is_published, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)'
         );
         $stmt->execute([
             ':title' => $data['title'],
             ':slug' => $data['slug'],
             ':excerpt' => $data['excerpt'],
             ':content' => $data['content'],
+            ':theme' => $data['theme'] ?? 'general',
             ':is_published' => $data['is_published'] ? 1 : 0,
         ]);
     }
@@ -70,7 +132,8 @@ final class PostModel
         $pdo = Database::connection();
         $stmt = $pdo->prepare(
             'UPDATE posts
-             SET title = :title, slug = :slug, excerpt = :excerpt, content = :content, is_published = :is_published, updated_at = CURRENT_TIMESTAMP
+             SET title = :title, slug = :slug, excerpt = :excerpt, content = :content,
+                 theme = :theme, is_published = :is_published, updated_at = CURRENT_TIMESTAMP
              WHERE id = :id'
         );
         $stmt->execute([
@@ -79,6 +142,7 @@ final class PostModel
             ':slug' => $data['slug'],
             ':excerpt' => $data['excerpt'],
             ':content' => $data['content'],
+            ':theme' => $data['theme'] ?? 'general',
             ':is_published' => $data['is_published'] ? 1 : 0,
         ]);
     }

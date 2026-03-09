@@ -36,6 +36,7 @@ final class AdminEventController
                 'event_time' => '',
                 'is_visible' => 1,
                 'sort_order' => 0,
+                'registration_url' => '',
             ],
             'formAction' => '/admin/evenements',
         ], 'admin');
@@ -137,6 +138,7 @@ final class AdminEventController
             'event_time' => trim((string) ($_POST['event_time'] ?? '')),
             'is_visible' => isset($_POST['is_visible']) ? 1 : 0,
             'sort_order' => (int) ($_POST['sort_order'] ?? 0),
+            'registration_url' => trim((string) ($_POST['registration_url'] ?? '')),
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Core\Auth;
 use App\Core\Flash;
 use App\Core\Request;
 use App\Core\View;
+use App\Models\ContactMessageModel;
 use App\Models\EventModel;
 use App\Models\MemberModel;
 use App\Models\PostModel;
@@ -161,17 +162,70 @@ final class MemberPortalController
         ], 'member');
     }
 
+    public function registerEvent(int $id): void
+    {
+        $member = Auth::requireMember();
+
+        if (!Auth::validateCsrf($_POST['csrf_token'] ?? null)) {
+            http_response_code(419);
+            Flash::set('error', 'Session expirée. Merci de réessayer.');
+            header('Location: /espace-membre/evenements');
+            return;
+        }
+
+        $event = EventModel::findVisibleById($id);
+        if (!$event) {
+            http_response_code(404);
+            Flash::set('error', 'Événement introuvable.');
+            header('Location: /espace-membre/evenements');
+            return;
+        }
+
+        $fullName = trim((string) (($member['first_name'] ?? '') . ' ' . ($member['last_name'] ?? '')));
+        $email = trim((string) ($member['email'] ?? ''));
+
+        ContactMessageModel::create([
+            'name' => $fullName !== '' ? $fullName : 'Membre',
+            'email' => $email !== '' ? $email : (string) (Auth::user()['email'] ?? 'noreply@localhost'),
+            'subject' => 'Inscription événement : ' . (string) ($event['title'] ?? ''),
+            'category' => 'evenement',
+            'message' => sprintf(
+                "Demande d'inscription d'un membre.%sMembre ID: %d%sÉvénement: %s%sDate: %s%sTéléphone: %s",
+                PHP_EOL,
+                (int) ($member['id'] ?? 0),
+                PHP_EOL,
+                (string) ($event['title'] ?? ''),
+                PHP_EOL,
+                (string) ($event['event_date'] ?? 'Non renseignée'),
+                PHP_EOL,
+                (string) (($member['phone'] ?? '') !== '' ? $member['phone'] : 'Non renseigné')
+            ),
+        ]);
+
+        Flash::set('success', 'Ta demande d\'inscription a bien été envoyée à l\'association.');
+        header('Location: /espace-membre/evenements');
+    }
+
     /* ─── Actualités ─── */
 
     public function actualites(): void
     {
         $member = Auth::requireMember();
-        $posts = PostModel::allPublished();
+
+        $selectedTheme = Request::str($_GET, 'theme');
+        if ($selectedTheme !== '' && !array_key_exists($selectedTheme, PostModel::THEMES)) {
+            $selectedTheme = '';
+        }
+
+        $posts = PostModel::allPublished($selectedTheme !== '' ? $selectedTheme : null);
 
         View::render('member/actualites', [
             'title' => 'Actualités — Les Enfants de la Lune',
             'member' => $member,
             'posts' => $posts,
+            'themes' => PostModel::THEMES,
+            'selectedTheme' => $selectedTheme,
+            'themeCounts' => PostModel::publishedThemeCounts(),
             'csrfToken' => Auth::csrfToken(),
         ], 'member');
     }
