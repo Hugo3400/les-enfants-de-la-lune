@@ -754,6 +754,64 @@ tbody tr:hover {
 	grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
+.admin-priority-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 14px;
+}
+
+.admin-priority-card {
+	padding: 16px;
+	display: grid;
+	gap: 8px;
+	align-content: start;
+}
+
+.admin-priority-card p {
+	margin: 0;
+	font-size: .88rem;
+	color: #d9d1ff;
+}
+
+.admin-priority-card strong {
+	font-size: 2rem;
+	line-height: 1;
+	color: #fff;
+}
+
+.admin-priority-card a {
+	font-size: .82rem;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.admin-kpi-strip {
+	padding: 14px;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.admin-kpi-item {
+	padding: 10px 12px;
+	border-radius: 10px;
+	border: 1px solid rgba(198, 183, 255, 0.18);
+	background: rgba(255, 255, 255, 0.04);
+	display: grid;
+	gap: 4px;
+}
+
+.admin-kpi-item span {
+	font-size: .8rem;
+	color: #cfc5f8;
+}
+
+.admin-kpi-item strong {
+	font-size: 1rem;
+	color: #fff;
+	line-height: 1.2;
+}
+
 .admin-stat-card {
 	padding: 16px;
 	background: linear-gradient(180deg, rgba(60, 47, 124, 0.88) 0%, rgba(44, 35, 95, 0.88) 100%);
@@ -815,6 +873,23 @@ tbody tr:hover {
 
 .admin-message-item small {
 	color: #c8bef7;
+}
+
+@media (max-width: 1100px) {
+	.admin-priority-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.admin-kpi-strip {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 700px) {
+	.admin-priority-grid,
+	.admin-kpi-strip {
+		grid-template-columns: 1fr;
+	}
 }
 
 .auth-body {
