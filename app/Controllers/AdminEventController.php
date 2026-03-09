@@ -131,6 +131,11 @@ final class AdminEventController
 
     private function sanitizeData(): array
     {
+        $registrationUrl = trim((string) ($_POST['registration_url'] ?? ''));
+        if ($registrationUrl !== '' && !filter_var($registrationUrl, FILTER_VALIDATE_URL)) {
+            $registrationUrl = '';
+        }
+
         return [
             'title' => trim((string) ($_POST['title'] ?? '')),
             'description' => trim((string) ($_POST['description'] ?? '')),
@@ -138,7 +143,7 @@ final class AdminEventController
             'event_time' => trim((string) ($_POST['event_time'] ?? '')),
             'is_visible' => isset($_POST['is_visible']) ? 1 : 0,
             'sort_order' => (int) ($_POST['sort_order'] ?? 0),
-            'registration_url' => trim((string) ($_POST['registration_url'] ?? '')),
+            'registration_url' => $registrationUrl,
         ];
     }
 }

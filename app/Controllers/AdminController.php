@@ -9,7 +9,6 @@ use App\Core\Flash;
 use App\Core\View;
 use App\Models\AccountingModel;
 use App\Models\ContactMessageModel;
-use App\Models\EventModel;
 use App\Models\MemberModel;
 use App\Models\PostModel;
 use App\Models\RentalModel;

@@ -26,6 +26,7 @@
       'aide' => '<i class="fa-solid fa-life-ring"></i> Demande d\'aide',
       'benevole' => '<i class="fa-solid fa-handshake"></i> Bénévolat',
       'partenariat' => '<i class="fa-solid fa-building"></i> Partenariat',
+      'evenement' => '<i class="fa-regular fa-calendar-check"></i> Inscription événement',
       'general' => '<i class="fa-regular fa-comment"></i> Général',
     ];
   ?>
