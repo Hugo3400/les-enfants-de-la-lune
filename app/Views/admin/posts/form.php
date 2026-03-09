@@ -4,7 +4,7 @@
     <h1><?= $isEdit ? 'Modifier un article' : 'Nouvel article' ?></h1>
     <a class="button-secondary" href="/admin/articles">Retour aux articles</a>
   </div>
-  <p class="article-form-intro">Renseigne le contenu principal puis ajuste la publication. Le slug sert à l'URL publique.</p>
+  <p class="article-form-intro">Écris ton article avec des blocs simples puis vérifie le rendu dans l'aperçu en direct.</p>
 
   <form method="post" action="<?= htmlspecialchars((string) ($formAction ?? '/admin/articles')) ?>" class="form-grid article-form-grid" id="articleForm">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
@@ -65,6 +65,7 @@
           <input type="checkbox" name="is_published" <?= (int) ($post['is_published'] ?? 0) === 1 ? 'checked' : '' ?>>
           Publier l'article
         </label>
+        <button type="button" id="autoExcerptBtn" class="button-secondary" style="width:100%; margin-top:10px; font-size:.84rem;">Générer un extrait auto</button>
       </article>
 
       <article class="article-side-card">
