@@ -35,6 +35,17 @@
           <?php if (!empty($event['description'])): ?>
             <p class="member-event-desc"><?= htmlspecialchars((string) $event['description']) ?></p>
           <?php endif; ?>
+
+          <div class="member-event-actions">
+            <?php if (!empty($event['registration_url'])): ?>
+              <a href="<?= htmlspecialchars((string) $event['registration_url']) ?>" target="_blank" rel="noopener" class="button-link">S'inscrire</a>
+            <?php else: ?>
+              <form method="post" action="/espace-membre/evenements/<?= (int) ($event['id'] ?? 0) ?>/inscription" style="margin:0;">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars((string) ($csrfToken ?? '')) ?>">
+                <button type="submit" class="button-secondary">Demander une inscription</button>
+              </form>
+            <?php endif; ?>
+          </div>
         </article>
       <?php endforeach; ?>
     </div>

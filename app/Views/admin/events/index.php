@@ -22,6 +22,7 @@
             <th>Description</th>
             <th>Date</th>
             <th>Heure</th>
+            <th>Inscription</th>
             <th>Visible</th>
             <th>Actions</th>
           </tr>
@@ -34,6 +35,13 @@
               <td><?= htmlspecialchars((string) ($event['description'] ?? '—')) ?></td>
               <td><?= htmlspecialchars((string) ($event['event_date'] ?? '—')) ?></td>
               <td><?= htmlspecialchars((string) ($event['event_time'] ?? '—')) ?></td>
+              <td>
+                <?php if (!empty($event['registration_url'])): ?>
+                  <a href="<?= htmlspecialchars((string) $event['registration_url']) ?>" target="_blank" rel="noopener">Lien externe</a>
+                <?php else: ?>
+                  <span style="color:#8a8a8a;">Demande interne</span>
+                <?php endif; ?>
+              </td>
               <td>
                 <?php if ((int) ($event['is_visible'] ?? 0)): ?>
                   <span class="status-pill status-available">Oui</span>
