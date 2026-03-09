@@ -49,11 +49,11 @@ final class AdminPostController
         header('Location: /admin');
     }
 
-    public function editForm(string $id): void
+    public function editForm(int $id): void
     {
         Auth::requirePermission('articles.edit');
 
-        $post = PostModel::findById((int) $id);
+        $post = PostModel::findById($id);
         if (!$post) {
             http_response_code(404);
             echo 'Article introuvable';
@@ -70,14 +70,14 @@ final class AdminPostController
         ], 'admin');
     }
 
-    public function update(string $id): void
+    public function update(int $id): void
     {
         Auth::requirePermission('articles.edit');
         if (!$this->validateRequest()) {
             return;
         }
 
-        $postId = (int) $id;
+        $postId = $id;
         if (!PostModel::findById($postId)) {
             http_response_code(404);
             echo 'Article introuvable';
@@ -94,14 +94,14 @@ final class AdminPostController
         header('Location: /admin');
     }
 
-    public function destroy(string $id): void
+    public function destroy(int $id): void
     {
         Auth::requirePermission('articles.delete');
         if (!$this->validateRequest()) {
             return;
         }
 
-        PostModel::delete((int) $id);
+        PostModel::delete($id);
         Flash::set('success', 'Article supprimé.');
         header('Location: /admin');
     }

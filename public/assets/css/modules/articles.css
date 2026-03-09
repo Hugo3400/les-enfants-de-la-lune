@@ -47,7 +47,7 @@
 
 .admin-article-form-page .article-form-grid {
 	display: grid;
-	grid-template-columns: 1.5fr .9fr;
+	grid-template-columns: minmax(0, 1.5fr) minmax(300px, .9fr);
 	gap: 14px;
 	max-width: 100%;
 }
@@ -61,12 +61,14 @@
 .admin-article-form-page .article-form-main {
 	display: grid;
 	gap: 12px;
+	min-width: 0;
 }
 
 .admin-article-form-page .article-form-side {
 	display: grid;
 	gap: 12px;
 	align-content: start;
+	min-width: 0;
 }
 
 .admin-article-form-page .article-side-card {
@@ -144,6 +146,8 @@
 	min-height: 220px;
 	max-height: 320px;
 	overflow: auto;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 	padding: 10px;
 	border-radius: 10px;
 	border: 1px solid rgba(196, 180, 255, 0.2);
@@ -172,6 +176,8 @@
 	margin: 0;
 	font-size: .88rem;
 	line-height: 1.55;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 }
 
 .admin-article-form-page .article-live-preview ul {
@@ -214,6 +220,8 @@
 .admin-article-form-page textarea[name="content"] {
 	min-height: 260px;
 	line-height: 1.6;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 }
 
 .admin-article-form-page .inline-check {
