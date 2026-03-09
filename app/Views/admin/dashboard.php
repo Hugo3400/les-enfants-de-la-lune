@@ -5,54 +5,53 @@
   </div>
   <p class="admin-lead">Vue rapide de l'activité et accès direct aux actions importantes.</p>
 
-  <div class="stats-grid admin-stats-grid">
-    <article class="card admin-stat-card">
-      <p>Articles totaux</p>
-      <strong><?= (int) ($postsCount ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Articles publiés</p>
-      <strong><?= (int) ($publishedCount ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Brouillons</p>
-      <strong><?= (int) ($draftCount ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Messages reçus</p>
-      <strong><?= (int) ($messagesCount ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
+  <div class="admin-priority-grid">
+    <article class="card admin-priority-card">
       <p>Messages non lus</p>
       <strong><?= (int) ($messagesUnreadCount ?? 0) ?></strong>
+      <a href="/admin/messages">Voir les messages</a>
     </article>
-    <article class="card admin-stat-card">
+    <article class="card admin-priority-card">
       <p>Événements à venir</p>
       <strong><?= (int) ($upcomingEventsCount ?? 0) ?></strong>
+      <a href="/admin/evenements">Gérer les événements</a>
     </article>
-    <article class="card admin-stat-card">
-      <p>Locations disponibles</p>
-      <strong><?= (int) ($rentalsAvailable ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Locations non disponibles</p>
-      <strong><?= (int) ($rentalsUnavailable ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Solde comptable</p>
-      <strong><?= number_format((float) ($accountingBalance ?? 0), 2, ',', ' ') ?> €</strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Membres inscrits</p>
-      <strong><?= (int) ($membersCount ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
-      <p>Membres actifs</p>
-      <strong><?= (int) ($membersActive ?? 0) ?></strong>
-    </article>
-    <article class="card admin-stat-card">
+    <article class="card admin-priority-card">
       <p>Profils incomplets</p>
       <strong><?= (int) ($membersIncomplete ?? 0) ?></strong>
+      <a href="/admin/membres">Voir les membres</a>
+    </article>
+    <article class="card admin-priority-card">
+      <p>Brouillons</p>
+      <strong><?= (int) ($draftCount ?? 0) ?></strong>
+      <a href="/admin/articles">Gérer les articles</a>
+    </article>
+  </div>
+
+  <div class="card admin-kpi-strip">
+    <article class="admin-kpi-item">
+      <span>Articles totaux</span>
+      <strong><?= (int) ($postsCount ?? 0) ?></strong>
+    </article>
+    <article class="admin-kpi-item">
+      <span>Articles publiés</span>
+      <strong><?= (int) ($publishedCount ?? 0) ?></strong>
+    </article>
+    <article class="admin-kpi-item">
+      <span>Messages reçus</span>
+      <strong><?= (int) ($messagesCount ?? 0) ?></strong>
+    </article>
+    <article class="admin-kpi-item">
+      <span>Membres actifs</span>
+      <strong><?= (int) ($membersActive ?? 0) ?> / <?= (int) ($membersCount ?? 0) ?></strong>
+    </article>
+    <article class="admin-kpi-item">
+      <span>Locations</span>
+      <strong><?= (int) ($rentalsAvailable ?? 0) ?> dispo · <?= (int) ($rentalsUnavailable ?? 0) ?> prises</strong>
+    </article>
+    <article class="admin-kpi-item">
+      <span>Solde comptable</span>
+      <strong><?= number_format((float) ($accountingBalance ?? 0), 2, ',', ' ') ?> €</strong>
     </article>
   </div>
 
