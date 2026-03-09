@@ -209,7 +209,7 @@ final class AdminRentalController
     {
         if ($data['title'] === '' || $data['location_label'] === '') {
             Flash::set('error', 'Le titre et le lieu sont obligatoires.');
-            header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/admin/locations'));
+            header('Location: /admin/locations');
             return false;
         }
 

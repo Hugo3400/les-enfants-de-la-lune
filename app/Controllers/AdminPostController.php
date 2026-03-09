@@ -143,7 +143,7 @@ final class AdminPostController
     {
         if ($data['title'] === '' || $data['slug'] === '' || $data['content'] === '') {
             Flash::set('error', 'Titre, slug et contenu sont obligatoires.');
-            header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/admin'));
+            header('Location: /admin/articles');
             return false;
         }
 

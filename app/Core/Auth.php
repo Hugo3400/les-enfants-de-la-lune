@@ -7,6 +7,9 @@ use App\Models\UserModel;
 
 final class Auth
 {
+    private const LOGIN_MAX_ATTEMPTS = 5;
+    private const LOGIN_LOCK_SECONDS = 900;
+
     public static function check(): bool
     {
         return isset($_SESSION['auth_user']) && is_array($_SESSION['auth_user']);
@@ -33,6 +36,10 @@ final class Auth
             return false;
         }
 
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_regenerate_id(true);
+        }
+
         $_SESSION['auth_user'] = [
             'id' => (int) $user['id'],
             'name' => (string) $user['name'],
@@ -46,6 +53,85 @@ final class Auth
     public static function logout(): void
     {
         unset($_SESSION['auth_user']);
+        unset($_SESSION['csrf_token']);
+
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_regenerate_id(true);
+        }
+    }
+
+    public static function canAttemptLogin(string $scope, string $email): array
+    {
+        $scope = self::normalizeThrottleScope($scope);
+        $key = self::throttleKey($scope, $email);
+        $bucket = $_SESSION['login_throttle'][$scope][$key] ?? null;
+
+        if (!is_array($bucket)) {
+            return [true, 0];
+        }
+
+        $now = time();
+        $lockedUntil = (int) ($bucket['locked_until'] ?? 0);
+        if ($lockedUntil > $now) {
+            return [false, $lockedUntil - $now];
+        }
+
+        if ($lockedUntil !== 0) {
+            unset($_SESSION['login_throttle'][$scope][$key]);
+        }
+
+        return [true, 0];
+    }
+
+    public static function registerFailedLogin(string $scope, string $email): int
+    {
+        $scope = self::normalizeThrottleScope($scope);
+        $key = self::throttleKey($scope, $email);
+        $bucket = $_SESSION['login_throttle'][$scope][$key] ?? [
+            'count' => 0,
+            'first_attempt_at' => time(),
+            'locked_until' => 0,
+        ];
+
+        $now = time();
+        $firstAttemptAt = (int) ($bucket['first_attempt_at'] ?? $now);
+        if ($now - $firstAttemptAt > self::LOGIN_LOCK_SECONDS) {
+            $bucket = [
+                'count' => 0,
+                'first_attempt_at' => $now,
+                'locked_until' => 0,
+            ];
+        }
+
+        $bucket['count'] = (int) ($bucket['count'] ?? 0) + 1;
+
+        if ((int) $bucket['count'] >= self::LOGIN_MAX_ATTEMPTS) {
+            $bucket['locked_until'] = $now + self::LOGIN_LOCK_SECONDS;
+        }
+
+        $_SESSION['login_throttle'][$scope][$key] = $bucket;
+
+        return max(0, (int) ($bucket['locked_until'] ?? 0) - $now);
+    }
+
+    public static function clearFailedLogins(string $scope, string $email): void
+    {
+        $scope = self::normalizeThrottleScope($scope);
+        $key = self::throttleKey($scope, $email);
+        unset($_SESSION['login_throttle'][$scope][$key]);
+    }
+
+    private static function throttleKey(string $scope, string $email): string
+    {
+        $ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+        $normalizedEmail = mb_strtolower(trim($email));
+        return hash('sha256', $scope . '|' . $ip . '|' . $normalizedEmail);
+    }
+
+    private static function normalizeThrottleScope(string $scope): string
+    {
+        $scope = trim($scope);
+        return $scope !== '' ? $scope : 'default';
     }
 
     /* ─── Member portal helpers ─── */

@@ -1,6 +1,19 @@
 <?php
 declare(strict_types=1);
 
+ini_set('session.use_strict_mode', '1');
+
+$isHttps = (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+    || ((string) ($_SERVER['SERVER_PORT'] ?? '') === '443');
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'secure' => $isHttps,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
+
 session_start();
 
 define('BASE_PATH', dirname(__DIR__));
@@ -21,6 +34,15 @@ $db = App\Core\Database::connection();
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('Referrer-Policy: strict-origin-when-cross-origin');
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'");
+header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+header('Cross-Origin-Opener-Policy: same-origin');
+header('Cross-Origin-Resource-Policy: same-site');
+header('X-Permitted-Cross-Domain-Policies: none');
+
+if ($isHttps) {
+    header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+}
 
 set_exception_handler(static function (\Throwable $exception): void {
     App\Core\ErrorHandler::internal($exception);

@@ -21,6 +21,10 @@
   <?php if ($pagesCssVersion !== null): ?>
     <link rel="stylesheet" href="/public/assets/css/modules/pages.css?v=<?= urlencode($pagesCssVersion) ?>">
   <?php endif; ?>
+  <?php
+    $mainJsPath = BASE_PATH . '/public/assets/js/main-nav.js';
+    $mainJsVersion = is_file($mainJsPath) ? (string) (filemtime($mainJsPath) ?: time()) : null;
+  ?>
 </head>
 <body class="public-body">
   <header class="site-header">
@@ -51,13 +55,6 @@
       </nav>
     </div>
   </header>
-  <script>
-    document.getElementById('navToggle').addEventListener('click', function() {
-      this.classList.toggle('active');
-      document.getElementById('mainNav').classList.toggle('nav-open');
-    });
-  </script>
-
   <main class="wrap">
     <?php if ($success = \App\Core\Flash::get('success')): ?>
       <div class="alert success"><?= htmlspecialchars($success) ?></div>
@@ -72,5 +69,8 @@
   <footer class="site-footer wrap">
     <small>© <?= date('Y') ?> Les Enfants de la Lune · Association solidaire à Blaine County</small>
   </footer>
+  <?php if ($mainJsVersion !== null): ?>
+    <script src="/public/assets/js/main-nav.js?v=<?= urlencode($mainJsVersion) ?>" defer></script>
+  <?php endif; ?>
 </body>
 </html>

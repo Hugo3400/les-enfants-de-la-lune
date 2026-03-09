@@ -35,6 +35,13 @@ final class AuthController
         $email = Request::email($_POST, 'email');
         $password = Request::str($_POST, 'password');
 
+        [$allowed, $retryAfter] = Auth::canAttemptLogin('admin', $email);
+        if (!$allowed) {
+            Flash::set('error', 'Trop de tentatives. Réessaie dans environ ' . (int) ceil($retryAfter / 60) . ' minute(s).');
+            header('Location: /admin/login');
+            return;
+        }
+
         if ($email === '' || $password === '') {
             Flash::set('error', 'Email et mot de passe sont obligatoires.');
             header('Location: /admin/login');
@@ -42,10 +49,17 @@ final class AuthController
         }
 
         if (!Auth::attempt($email, $password)) {
-            Flash::set('error', 'Identifiants invalides.');
+            $lockFor = Auth::registerFailedLogin('admin', $email);
+            if ($lockFor > 0) {
+                Flash::set('error', 'Compte temporairement bloqué après plusieurs échecs. Réessaie dans environ ' . (int) ceil($lockFor / 60) . ' minute(s).');
+            } else {
+                Flash::set('error', 'Identifiants invalides.');
+            }
             header('Location: /admin/login');
             return;
         }
+
+        Auth::clearFailedLogins('admin', $email);
 
         Flash::set('success', 'Connexion réussie.');
         header('Location: /admin');

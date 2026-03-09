@@ -41,6 +41,13 @@ final class MemberPortalController
         $email = Request::email($_POST, 'email');
         $password = Request::str($_POST, 'password');
 
+        [$allowed, $retryAfter] = Auth::canAttemptLogin('member', $email);
+        if (!$allowed) {
+            Flash::set('error', 'Trop de tentatives. Réessaie dans environ ' . (int) ceil($retryAfter / 60) . ' minute(s).');
+            header('Location: /espace-membre/connexion');
+            return;
+        }
+
         if ($email === '' || $password === '') {
             Flash::set('error', 'Email et mot de passe sont obligatoires.');
             header('Location: /espace-membre/connexion');
@@ -48,10 +55,17 @@ final class MemberPortalController
         }
 
         if (!Auth::attempt($email, $password)) {
-            Flash::set('error', 'Identifiants invalides.');
+            $lockFor = Auth::registerFailedLogin('member', $email);
+            if ($lockFor > 0) {
+                Flash::set('error', 'Compte temporairement bloqué après plusieurs échecs. Réessaie dans environ ' . (int) ceil($lockFor / 60) . ' minute(s).');
+            } else {
+                Flash::set('error', 'Identifiants invalides.');
+            }
             header('Location: /espace-membre/connexion');
             return;
         }
+
+        Auth::clearFailedLogins('member', $email);
 
         // Check member profile exists
         $member = Auth::member();
