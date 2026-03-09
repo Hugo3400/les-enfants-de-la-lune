@@ -1,0 +1,366 @@
+/* ============================================================
+   THEME ADMIN – Style violet/lavande cohérent avec le site public
+   Fond clair lavande, accent violet, header violet foncé
+   ============================================================ */
+
+/* ---- BASE ---- */
+.admin-body {
+background: #f0ecf9 !important;
+color: #2d2640 !important;
+}
+
+.admin-body::before,
+.admin-body::after {
+display: none !important;
+}
+
+/* ---- HEADER ---- */
+.admin-body .site-header {
+background: linear-gradient(135deg, #1e1743 0%, #34286a 100%) !important;
+border-bottom: none !important;
+box-shadow: 0 2px 16px rgba(30, 23, 67, 0.35) !important;
+}
+
+.admin-body .brand {
+color: #ffffff !important;
+font-size: 1.15rem;
+font-weight: 700;
+}
+
+.admin-body .header-inner {
+flex-direction: row !important;
+align-items: center;
+gap: 16px;
+flex-wrap: wrap;
+}
+
+.admin-body .main-nav {
+gap: 2px;
+}
+
+.admin-body .main-nav a {
+color: rgba(199, 194, 255, 0.85) !important;
+border-radius: 8px;
+padding: 7px 13px;
+font-size: .88rem;
+font-weight: 500;
+border: 1px solid transparent;
+transition: all .2s ease;
+}
+
+.admin-body .main-nav a:hover {
+color: #fff !important;
+background: rgba(255, 255, 255, 0.12);
+border-color: rgba(199, 194, 255, 0.3);
+}
+
+/* Lien CTA "Nouvel article" – dernier lien */
+.admin-body .main-nav a:last-child {
+background: #6957d8;
+color: #fff !important;
+border-color: #6957d8;
+font-weight: 700;
+border-radius: 999px;
+padding: 7px 16px;
+}
+
+.admin-body .main-nav a:last-child:hover {
+background: #5a48c4;
+border-color: #5a48c4;
+}
+
+/* ---- CARDS ---- */
+.admin-body .card {
+background: #ffffff !important;
+border: 1px solid rgba(105, 87, 216, 0.1) !important;
+border-radius: 12px !important;
+box-shadow: 0 2px 12px rgba(30, 23, 67, 0.06) !important;
+backdrop-filter: none !important;
+}
+
+.admin-body .card:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(30, 23, 67, 0.1) !important;
+border-color: rgba(105, 87, 216, 0.25) !important;
+}
+
+/* ---- STAT CARDS ---- */
+.admin-body .admin-stat-card {
+background: #ffffff !important;
+border-left: 4px solid #6957d8 !important;
+padding: 18px 16px;
+}
+
+.admin-body .admin-stat-card p {
+color: #7C6F93 !important;
+font-size: .88rem;
+font-weight: 500;
+margin: 0;
+}
+
+.admin-body .admin-stat-card strong {
+color: #1e1743 !important;
+font-size: 1.8rem;
+margin-top: 6px;
+}
+
+/* ---- BADGE ---- */
+.admin-body .admin-badge {
+background: rgba(105, 87, 216, 0.1) !important;
+border: 1px solid rgba(105, 87, 216, 0.25) !important;
+color: #5a48c4 !important;
+font-size: .8rem;
+font-weight: 700;
+}
+
+/* ---- SECTION HEADS ---- */
+.admin-body .section-head h1,
+.admin-body .section-head h2,
+.admin-body h1,
+.admin-body h2,
+.admin-body h3 {
+color: #1e1743 !important;
+}
+
+.admin-body .section-head a:not(.button-link):not(.button-secondary) {
+color: #6957d8 !important;
+font-weight: 600;
+text-decoration: none;
+}
+
+.admin-body .section-head a:not(.button-link):not(.button-secondary):hover {
+text-decoration: underline;
+}
+
+.admin-body .admin-lead {
+color: #7C6F93 !important;
+}
+
+/* ---- BUTTONS ---- */
+.admin-body .button-link {
+background: #6957d8 !important;
+color: #fff !important;
+border: none !important;
+border-radius: 10px !important;
+font-weight: 700;
+box-shadow: 0 3px 10px rgba(105, 87, 216, 0.25);
+}
+
+.admin-body .button-link::after {
+display: none;
+}
+
+.admin-body .button-link:hover {
+background: #5a48c4 !important;
+box-shadow: 0 5px 16px rgba(105, 87, 216, 0.35) !important;
+}
+
+.admin-body .button-secondary {
+background: #ffffff !important;
+color: #1e1743 !important;
+border: 1px solid rgba(105, 87, 216, 0.2) !important;
+border-radius: 10px !important;
+box-shadow: 0 1px 4px rgba(30, 23, 67, 0.06) !important;
+font-weight: 600;
+}
+
+.admin-body .button-secondary:hover {
+background: #f5f0fa !important;
+border-color: rgba(105, 87, 216, 0.35) !important;
+box-shadow: 0 3px 10px rgba(30, 23, 67, 0.08) !important;
+}
+
+.admin-body button {
+background: #6957d8 !important;
+color: #fff !important;
+border: none !important;
+border-radius: 10px !important;
+}
+
+.admin-body button:hover {
+background: #5a48c4 !important;
+box-shadow: 0 4px 14px rgba(105, 87, 216, 0.3) !important;
+}
+
+/* ---- TABLES ---- */
+.admin-body .table-wrap {
+border: 1px solid rgba(105, 87, 216, 0.1);
+border-radius: 12px;
+overflow: hidden;
+}
+
+.admin-body table {
+background: #ffffff;
+border-radius: 0;
+}
+
+.admin-body th {
+background: #f5f0fa !important;
+color: #1e1743 !important;
+border-color: rgba(105, 87, 216, 0.1) !important;
+font-weight: 700;
+font-size: .82rem;
+text-transform: uppercase;
+letter-spacing: .03em;
+}
+
+.admin-body td {
+border-color: rgba(105, 87, 216, 0.06) !important;
+color: #2d2640;
+}
+
+.admin-body tbody tr:nth-child(even) {
+background: rgba(105, 87, 216, 0.02);
+}
+
+.admin-body tbody tr:hover {
+background: rgba(105, 87, 216, 0.06) !important;
+}
+
+/* ---- FORMS ---- */
+.admin-body input,
+.admin-body textarea,
+.admin-body select {
+background: #ffffff !important;
+border: 1px solid rgba(105, 87, 216, 0.2) !important;
+border-radius: 10px !important;
+color: #2d2640 !important;
+}
+
+.admin-body input:focus,
+.admin-body textarea:focus,
+.admin-body select:focus {
+border-color: #6957d8 !important;
+box-shadow: 0 0 0 3px rgba(105, 87, 216, 0.12) !important;
+outline: none !important;
+}
+
+.admin-body label {
+color: #1e1743 !important;
+font-weight: 600;
+font-size: .9rem;
+}
+
+/* ---- ALERTS ---- */
+.admin-body .alert.success {
+background: rgba(46, 174, 96, 0.1) !important;
+border: 1px solid rgba(46, 174, 96, 0.3) !important;
+color: #1a6b3a !important;
+}
+
+.admin-body .alert.error {
+background: rgba(231, 76, 60, 0.1) !important;
+border: 1px solid rgba(231, 76, 60, 0.3) !important;
+color: #c0392b !important;
+}
+
+/* ---- STATUS PILLS ---- */
+.admin-body .status-pill.status-available {
+background: rgba(46, 174, 96, 0.12);
+border-color: rgba(46, 174, 96, 0.3);
+color: #1a8a4a;
+}
+
+.admin-body .status-pill.status-unavailable {
+background: rgba(231, 76, 60, 0.12);
+border-color: rgba(231, 76, 60, 0.3);
+color: #c0392b;
+}
+
+/* ---- MESSAGES ---- */
+.admin-body .admin-message-item {
+background: #ffffff !important;
+border: 1px solid rgba(105, 87, 216, 0.1) !important;
+}
+
+.admin-body .admin-message-item:hover {
+border-color: rgba(105, 87, 216, 0.25) !important;
+}
+
+.admin-body .admin-message-item h3 {
+color: #1e1743;
+}
+
+.admin-body .admin-message-item p {
+color: #7C6F93 !important;
+}
+
+.admin-body .admin-message-item small {
+color: #a098b8 !important;
+}
+
+/* ---- TEXT ---- */
+.admin-body p {
+color: #7C6F93 !important;
+}
+
+.admin-body a {
+color: #6957d8;
+}
+
+.admin-body a:hover {
+color: #5a48c4;
+}
+
+/* ---- LINK DANGER ---- */
+.admin-body .link-danger {
+color: #e74c3c !important;
+background: transparent !important;
+}
+
+.admin-body .link-danger:hover {
+color: #c0392b !important;
+}
+
+/* ---- FOOTER ---- */
+.admin-body .admin-footer {
+border-top: 1px solid rgba(105, 87, 216, 0.1) !important;
+padding-top: 16px;
+padding-bottom: 24px;
+}
+
+.admin-body .site-footer {
+color: #a098b8 !important;
+text-align: center;
+}
+
+/* ---- MESSAGES NON LUS ---- */
+.admin-body .message-unread {
+border-left: 4px solid #6957d8 !important;
+background: #f8f5ff !important;
+}
+
+.admin-body .message-unread h3 {
+color: #6957d8 !important;
+}
+
+/* ---- NOTIFICATION BADGE NAV ---- */
+.admin-body .nav-badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 18px;
+height: 18px;
+padding: 0 5px;
+border-radius: 999px;
+background: #ff5d8f;
+color: #fff !important;
+font-size: .68rem;
+font-weight: 800;
+line-height: 1;
+margin-left: 4px;
+}
+
+.admin-body .nav-link-with-badge {
+display: inline-flex !important;
+align-items: center;
+gap: 0;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+.admin-body .header-inner {
+flex-direction: column !important;
+align-items: flex-start;
+}
+}

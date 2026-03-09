@@ -1,0 +1,410 @@
+/* ==========================================================
+   COMPTABILITÉ – Layout & composants
+   Parent: <main class="wrap admin-main"> → déjà centré 1120px
+   ========================================================== */
+
+/* ---- CONTENEUR PRINCIPAL ---- */
+.admin-accounting-page {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* ---- EN‑TÊTE (titre + actions) ---- */
+.admin-accounting-page > .section-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 14px;
+	flex-wrap: wrap;
+	margin-bottom: 0;
+}
+
+.admin-accounting-page > .section-head h1 {
+	margin: 0;
+	white-space: nowrap;
+}
+
+.admin-accounting-page .accounting-head-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.admin-accounting-page .accounting-open-modal {
+	white-space: nowrap;
+}
+
+.admin-accounting-page .accounting-head-actions .admin-badge {
+	white-space: nowrap;
+}
+
+/* ---- TOOLBAR FILTRES ---- */
+.admin-accounting-page .accounting-toolbar {
+	padding: 20px;
+}
+
+.admin-accounting-page .accounting-toolbar h2 {
+	margin: 0 0 14px;
+	font-size: 1.05rem;
+}
+
+.admin-accounting-page .accounting-filters {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+	align-items: end;
+}
+
+.admin-accounting-page .accounting-filters label {
+	font-size: .88rem;
+}
+
+.admin-accounting-page .accounting-filter-actions {
+	grid-column: 1 / -1;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: flex-start;
+	padding-top: 4px;
+}
+
+/* ---- FORMULAIRE MODALE ---- */
+.admin-accounting-page .accounting-entry-form {
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 14px;
+}
+
+.admin-accounting-page .accounting-entry-form label:last-of-type {
+	grid-column: 1 / -1;
+}
+
+.admin-accounting-page .accounting-entry-form .actions-row {
+	grid-column: 1 / -1;
+	justify-content: flex-start;
+}
+
+/* ---- MODAL ---- */
+.accounting-modal-open {
+	overflow: hidden;
+}
+
+.admin-accounting-page .accounting-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 120;
+	display: grid;
+	place-items: center;
+	padding: 24px;
+}
+
+.admin-accounting-page .accounting-modal[hidden] {
+	display: none !important;
+}
+
+.admin-accounting-page .accounting-modal-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.45);
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.admin-accounting-page .accounting-modal-dialog {
+	position: relative;
+	z-index: 1;
+	width: min(920px, 100%);
+	max-height: calc(100vh - 48px);
+	overflow: auto;
+	box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
+}
+
+.admin-accounting-page .accounting-modal-dialog .section-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 14px;
+}
+
+/* ---- GRILLES KPI ---- */
+.admin-accounting-page .admin-stats-grid,
+.admin-accounting-page .accounting-summary-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+
+.admin-accounting-page .admin-stats-grid .card,
+.admin-accounting-page .accounting-summary-grid .card {
+	min-height: auto;
+}
+
+/* KPI (période) */
+.admin-accounting-page .accounting-kpi {
+	padding: 18px 20px;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	background: #ffffff;
+	border-left: 4px solid #6957d8;
+	border-radius: 12px;
+}
+
+.admin-accounting-page .accounting-kpi p {
+	margin: 0;
+	font-size: .88rem;
+	color: #5a5a5a !important;
+}
+
+.admin-accounting-page .accounting-kpi strong {
+	display: block;
+	margin-top: 8px;
+	font-size: 1.5rem;
+	line-height: 1.15;
+	font-variant-numeric: tabular-nums;
+	color: #1e1743;
+}
+
+.admin-accounting-page .accounting-kpi small {
+	display: block;
+	margin-top: 7px;
+	color: #8a8a8a !important;
+	font-size: .82rem;
+}
+
+.admin-accounting-page .kpi-credit strong {
+	color: #1a8a4a;
+}
+
+.admin-accounting-page .kpi-debit strong {
+	color: #c0392b;
+}
+
+.admin-accounting-page .kpi-positive strong {
+	color: #1a8a4a;
+}
+
+.admin-accounting-page .kpi-negative strong {
+	color: #c0392b;
+}
+
+/* Stat cards (global) */
+.admin-accounting-page .admin-stat-card {
+	background: #ffffff !important;
+	border-left: 4px solid #6957d8 !important;
+	padding: 18px 20px;
+	border-radius: 12px !important;
+}
+
+.admin-accounting-page .admin-stat-card p {
+	color: #5a5a5a !important;
+	margin: 0;
+	font-size: .88rem;
+}
+
+.admin-accounting-page .admin-stat-card strong {
+	color: #1e1743 !important;
+	display: block;
+	margin-top: 8px;
+	font-size: 1.5rem;
+	line-height: 1.15;
+	font-variant-numeric: tabular-nums;
+}
+
+.admin-accounting-page .admin-stat-card small {
+	display: block;
+	margin-top: 6px;
+	color: #8a8a8a !important;
+	font-size: .8rem;
+}
+
+/* ---- SECTIONS CARTES (tableaux) ---- */
+.admin-accounting-page > .card {
+	padding: 20px;
+}
+
+.admin-accounting-page > .card > .section-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-bottom: 8px;
+}
+
+.admin-accounting-page > .card > .section-head h2 {
+	margin: 0;
+	font-size: 1.05rem;
+}
+
+.admin-accounting-page .accounting-note {
+	margin: 4px 0 12px;
+	font-size: .9rem;
+	color: #5a5a5a !important;
+}
+
+/* ---- TABLEAUX ---- */
+.admin-accounting-page .accounting-table-wrap {
+	margin-top: 8px;
+	border-radius: 12px;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	overflow-x: auto;
+}
+
+.admin-accounting-page .accounting-weekly-table {
+	min-width: 720px;
+}
+
+.admin-accounting-page .accounting-journal {
+	min-width: 1400px;
+}
+
+.admin-accounting-page .accounting-empty-row {
+	text-align: center;
+	padding: 24px 14px;
+	font-weight: 600;
+	color: #8a8a8a !important;
+	background: #faf8f5;
+}
+
+.admin-accounting-page .accounting-journal td:nth-child(9) {
+	min-width: 200px;
+}
+
+.admin-accounting-page .accounting-journal td:nth-child(13) {
+	max-width: 260px;
+}
+
+.admin-accounting-page .accounting-journal td,
+.admin-accounting-page .accounting-journal th {
+	font-size: .85rem;
+	padding: 8px 10px;
+}
+
+.admin-accounting-page .accounting-weekly-table td,
+.admin-accounting-page .accounting-weekly-table th {
+	padding: 10px 12px;
+}
+
+.admin-accounting-page .journal-code {
+	font-weight: 700;
+	letter-spacing: .03em;
+	color: #1e1743 !important;
+}
+
+.admin-accounting-page .accounting-pill {
+	min-width: 72px;
+	text-align: center;
+}
+
+.admin-accounting-page .accounting-inline-form {
+	display: inline-flex;
+	margin-right: 6px;
+}
+
+.admin-accounting-page td .button-secondary {
+	padding: 5px 10px;
+	font-size: .78rem;
+}
+
+/* ---- MONTANTS ---- */
+.admin-accounting-page .amount-col {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.admin-accounting-page .amount-debit {
+	color: #c0392b !important;
+}
+
+.admin-accounting-page .amount-credit {
+	color: #1a8a4a !important;
+}
+
+.admin-accounting-page .amount-balance.is-positive {
+	color: #1a8a4a !important;
+	font-weight: 700;
+}
+
+.admin-accounting-page .amount-balance.is-negative {
+	color: #c0392b !important;
+	font-weight: 700;
+}
+
+/* ---- TABLEAU STYLE CLAIR ---- */
+.admin-accounting-page thead th {
+	font-size: .82rem;
+	letter-spacing: .03em;
+	text-transform: uppercase;
+	background: #f7f5f2 !important;
+	color: #1e1743 !important;
+}
+
+.admin-accounting-page tbody tr:nth-child(even) {
+	background: rgba(0, 0, 0, 0.018);
+}
+
+.admin-accounting-page tbody tr:hover {
+	background: rgba(232, 115, 74, 0.06) !important;
+}
+
+.admin-accounting-page .entry-income td:first-child {
+	box-shadow: inset 3px 0 0 rgba(46, 174, 96, 0.5);
+}
+
+.admin-accounting-page .entry-expense td:first-child {
+	box-shadow: inset 3px 0 0 rgba(231, 76, 60, 0.5);
+}
+
+.admin-accounting-page tfoot th {
+	background: #f0ece7 !important;
+	font-weight: 800;
+	color: #1e1743 !important;
+}
+
+.admin-accounting-page tfoot .amount-col {
+	font-size: .92rem;
+}
+
+.admin-accounting-page .link-danger[disabled] {
+	opacity: .45;
+	cursor: not-allowed;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+	.admin-accounting-page .admin-stats-grid,
+	.admin-accounting-page .accounting-summary-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.admin-accounting-page .accounting-filters {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.admin-accounting-page .accounting-head-actions {
+		width: 100%;
+	}
+
+	.admin-accounting-page .accounting-entry-form {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-accounting-page .accounting-modal {
+		padding: 12px;
+	}
+}
+
+@media (max-width: 640px) {
+	.admin-accounting-page .admin-stats-grid,
+	.admin-accounting-page .accounting-summary-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-accounting-page .accounting-filters {
+		grid-template-columns: 1fr;
+	}
+}

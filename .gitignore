@@ -1,0 +1,17 @@
+# Environnement
+.env
+.env.*
+
+# Dépendances / artefacts
+vendor/
+node_modules/
+
+# Runtime
+storage/logs/
+storage/*.sqlite
+storage/*.db
+tmp/
+
+# IDE
+.DS_Store
+Thumbs.db

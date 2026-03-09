@@ -1,0 +1,135 @@
+.admin-articles-page .section-head,
+.admin-article-form-page .section-head {
+	margin-bottom: 8px;
+}
+
+.admin-articles-page > p,
+.admin-article-form-page > p {
+	margin-top: 0;
+	margin-bottom: 14px;
+}
+
+.admin-articles-page .table-wrap {
+	border-radius: 12px;
+	border: 1px solid rgba(196, 180, 255, 0.18);
+}
+
+.admin-articles-page table th:nth-child(1) {
+	min-width: 220px;
+}
+
+.admin-articles-page table th:nth-child(2) {
+	min-width: 150px;
+}
+
+.admin-articles-page table td:nth-child(1) {
+	font-weight: 600;
+	color: #f3edff;
+}
+
+.admin-articles-page .actions-cell {
+	gap: 12px;
+}
+
+.admin-article-form-page .form-grid {
+	max-width: 860px;
+}
+
+.admin-article-form-page {
+	display: grid;
+	gap: 10px;
+}
+
+.admin-article-form-page .article-form-intro {
+	margin: 0;
+	color: #d9d0ff;
+}
+
+.admin-article-form-page .article-form-grid {
+	display: grid;
+	grid-template-columns: 1.5fr .9fr;
+	gap: 14px;
+	max-width: 100%;
+}
+
+.admin-article-form-page .article-form-main {
+	display: grid;
+	gap: 12px;
+}
+
+.admin-article-form-page .article-form-side {
+	display: grid;
+	gap: 12px;
+	align-content: start;
+}
+
+.admin-article-form-page .article-side-card {
+	border: 1px solid rgba(196, 180, 255, 0.2);
+	border-radius: 12px;
+	padding: 12px;
+	background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-article-form-page .article-side-card h3 {
+	margin: 0 0 8px;
+	font-size: .98rem;
+}
+
+.admin-article-form-page .article-side-card ul {
+	margin: 0;
+	padding-left: 18px;
+	display: grid;
+	gap: 6px;
+	color: #d5cbff;
+	font-size: .9rem;
+}
+
+.admin-article-form-page .article-publish-check {
+	margin: 0;
+}
+
+.admin-article-form-page .form-help {
+	margin: -2px 0 0;
+	font-size: .88rem;
+	color: #cfc3ff;
+}
+
+.admin-article-form-page .article-stat {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	margin: 0 0 6px;
+	font-size: .9rem;
+	color: #ddd4ff;
+}
+
+.admin-article-form-page .article-form-actions {
+	grid-column: 1 / -1;
+	padding-top: 4px;
+}
+
+.admin-article-form-page textarea[name="content"] {
+	min-height: 260px;
+	line-height: 1.6;
+}
+
+.admin-article-form-page .inline-check {
+	padding: 8px 10px;
+	border: 1px solid rgba(196, 180, 255, 0.22);
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 900px) {
+	.admin-articles-page .table-wrap {
+		font-size: .92rem;
+	}
+
+	.admin-article-form-page .form-grid {
+		max-width: 100%;
+	}
+
+	.admin-article-form-page .article-form-grid {
+		grid-template-columns: 1fr;
+	}
+}
