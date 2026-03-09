@@ -12,7 +12,7 @@
     <aside class="card contact-info-card">
       <h2>Comment pouvons-nous vous aider ?</h2>
       <div class="contact-categories">
-        <article class="contact-category">
+        <article class="contact-category" data-contact-category="aide" tabindex="0" role="button" aria-label="Choisir demander de l'aide">
           <span class="contact-category-icon" aria-hidden="true"><i class="fa-solid fa-life-ring"></i></span>
           <div>
             <strong>Demander de l'aide</strong>
@@ -20,7 +20,7 @@
           </div>
         </article>
 
-        <article class="contact-category">
+        <article class="contact-category" data-contact-category="benevole" tabindex="0" role="button" aria-label="Choisir devenir bénévole">
           <span class="contact-category-icon" aria-hidden="true"><i class="fa-solid fa-handshake-angle"></i></span>
           <div>
             <strong>Devenir bénévole</strong>
@@ -28,7 +28,7 @@
           </div>
         </article>
 
-        <article class="contact-category">
+        <article class="contact-category" data-contact-category="partenariat" tabindex="0" role="button" aria-label="Choisir partenariat">
           <span class="contact-category-icon" aria-hidden="true"><i class="fa-solid fa-building"></i></span>
           <div>
             <strong>Partenariat</strong>
@@ -46,46 +46,54 @@
     <article class="card contact-form-card">
       <h2>Envoyer un message</h2>
 
-      <form method="post" action="/contact" class="form-grid contact-form-grid">
+      <form method="post" action="/contact" class="form-grid contact-form-grid" id="contactForm" novalidate>
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
 
         <label>
           Motif du contact
-          <select name="category" required>
+          <select name="category" id="contactCategory" required>
             <option value="aide">Demander de l'aide</option>
             <option value="benevole">Devenir bénévole</option>
             <option value="partenariat">Proposition de partenariat</option>
             <option value="general" selected>Question générale</option>
           </select>
+          <small class="contact-field-error" data-error-for="category" aria-live="polite"></small>
         </label>
 
         <div class="contact-form-row">
           <label>
             Nom complet
-            <input type="text" name="name" required placeholder="Votre nom">
+            <input type="text" name="name" required placeholder="Votre nom" minlength="2" maxlength="120">
+            <small class="contact-field-error" data-error-for="name" aria-live="polite"></small>
           </label>
 
           <label>
             Email
-            <input type="email" name="email" required placeholder="vous@email.fr">
+            <input type="email" name="email" required placeholder="vous@email.fr" maxlength="190">
+            <small class="contact-field-error" data-error-for="email" aria-live="polite"></small>
           </label>
         </div>
 
         <label>
           Sujet
-          <input type="text" name="subject" required placeholder="Objet de votre demande">
+          <input type="text" name="subject" required placeholder="Objet de votre demande" minlength="3" maxlength="160">
+          <small class="contact-field-error" data-error-for="subject" aria-live="polite"></small>
         </label>
 
         <label>
           Message
-          <textarea name="message" rows="7" required placeholder="Décrivez votre situation ou votre proposition..."></textarea>
+          <textarea name="message" id="contactMessage" rows="7" required placeholder="Décrivez votre situation ou votre proposition..." minlength="30" maxlength="1500"></textarea>
+          <small class="contact-field-help" id="contactMessageCount">0 / 1500 caractères</small>
+          <small class="contact-field-error" data-error-for="message" aria-live="polite"></small>
         </label>
 
-        <div class="actions-row">
-          <button type="submit">Envoyer le message</button>
+        <div class="actions-row contact-actions-row">
+          <button type="submit" id="contactSubmitButton">Envoyer le message</button>
         </div>
       </form>
     </article>
   </div>
 
 </section>
+
+<script src="/public/assets/js/contact-form.js?v=1773062000" defer></script>
