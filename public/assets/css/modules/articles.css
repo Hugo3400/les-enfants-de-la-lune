@@ -52,6 +52,12 @@
 	max-width: 100%;
 }
 
+.admin-article-form-page .article-form-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
 .admin-article-form-page .article-form-main {
 	display: grid;
 	gap: 12px;
@@ -84,8 +90,105 @@
 	font-size: .9rem;
 }
 
+.admin-article-form-page .article-template-list {
+	display: grid;
+	gap: 8px;
+}
+
+.admin-article-form-page .article-template-btn {
+	justify-content: center;
+	padding: 8px 10px !important;
+	font-size: .84rem !important;
+}
+
 .admin-article-form-page .article-publish-check {
 	margin: 0;
+}
+
+.admin-article-form-page .article-editor-wrap {
+	border: 1px solid rgba(196, 180, 255, 0.2);
+	border-radius: 12px;
+	padding: 12px;
+	background: rgba(255, 255, 255, 0.03);
+	display: grid;
+	gap: 10px;
+}
+
+.admin-article-form-page .article-editor-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.admin-article-form-page .article-editor-head h3 {
+	margin: 0;
+	font-size: .98rem;
+}
+
+.admin-article-form-page .article-editor-tools {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.admin-article-form-page .article-tool {
+	padding: 5px 10px !important;
+	font-size: .76rem !important;
+	line-height: 1 !important;
+	border-radius: 8px !important;
+}
+
+.admin-article-form-page .article-live-preview {
+	min-height: 220px;
+	max-height: 320px;
+	overflow: auto;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid rgba(196, 180, 255, 0.2);
+	background: rgba(255, 255, 255, 0.02);
+	display: grid;
+	gap: 8px;
+}
+
+.admin-article-form-page .article-live-preview h2,
+.admin-article-form-page .article-live-preview h3 {
+	margin: 2px 0;
+	line-height: 1.3;
+}
+
+.admin-article-form-page .article-live-preview h2 {
+	font-size: 1.05rem;
+}
+
+.admin-article-form-page .article-live-preview h3 {
+	font-size: .95rem;
+}
+
+.admin-article-form-page .article-live-preview p,
+.admin-article-form-page .article-live-preview ul,
+.admin-article-form-page .article-live-preview blockquote {
+	margin: 0;
+	font-size: .88rem;
+	line-height: 1.55;
+}
+
+.admin-article-form-page .article-live-preview ul {
+	padding-left: 18px;
+	display: grid;
+	gap: 4px;
+}
+
+.admin-article-form-page .article-live-preview blockquote {
+	border-left: 3px solid rgba(196, 180, 255, 0.5);
+	padding-left: 10px;
+	font-style: italic;
+}
+
+.admin-article-form-page .article-preview-empty {
+	opacity: .7;
+	font-style: italic;
 }
 
 .admin-article-form-page .form-help {
@@ -129,6 +232,7 @@
 		max-width: 100%;
 	}
 
+	.admin-article-form-page .article-form-row,
 	.admin-article-form-page .article-form-grid {
 		grid-template-columns: 1fr;
 	}
