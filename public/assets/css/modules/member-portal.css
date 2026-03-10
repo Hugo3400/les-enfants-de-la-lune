@@ -707,7 +707,53 @@
   border-color: #d6dbeb !important;
 }
 
-.member-auth-body .auth-form button {
+.member-auth-body .password-field {
+  position: relative;
+}
+
+.member-auth-body .password-field input {
+  padding-right: 38px;
+}
+
+.member-auth-body .auth-form .password-field .password-toggle {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  min-height: 24px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: #5f6680 !important;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.member-auth-body .auth-form .password-field .password-toggle i {
+  font-size: 0.82rem;
+}
+
+.member-auth-body .auth-form .password-field .password-toggle:hover {
+  background: #eceff7 !important;
+  color: #3f4560 !important;
+  transform: translateY(-50%);
+  box-shadow: none !important;
+}
+
+.member-auth-body .auth-form .password-field .password-toggle:focus-visible {
+  outline: 2px solid rgba(105, 87, 216, 0.45);
+  outline-offset: 1px;
+}
+
+.member-auth-body .auth-form > button[type="submit"] {
   margin-top: 4px;
   min-height: 46px;
   border-radius: 12px !important;

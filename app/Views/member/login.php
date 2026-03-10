@@ -18,7 +18,18 @@
 
         <label>
           Mot de passe
-          <input type="password" name="password" placeholder="••••••••" required>
+          <div class="password-field">
+            <input type="password" id="memberPassword" name="password" placeholder="••••••••" required>
+            <button
+              type="button"
+              class="password-toggle"
+              data-password-toggle="memberPassword"
+              aria-label="Afficher le mot de passe"
+              aria-pressed="false"
+            >
+              <i class="fa-regular fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
         </label>
 
         <button type="submit">Se connecter</button>
@@ -28,3 +39,5 @@
     </div>
   </article>
 </section>
+
+<script src="/public/assets/js/password-toggle.js?v=1773062800" defer></script>
