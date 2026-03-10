@@ -21,6 +21,79 @@
 	--asso-radius: 12px;
 }
 
+/* ---- Dark mode (préparé, non activé) ---- */
+.public-body[data-theme="dark"] {
+	--asso-violet: #8f86f8;
+	--asso-violet-dark: #7a70f3;
+	--asso-violet-light: rgba(143, 134, 248, 0.16);
+	--asso-navy: #e9e6ff;
+	--asso-navy-soft: #cfc9f8;
+	--asso-bg: #120f24;
+	--asso-bg-alt: #191533;
+	--asso-bg-warm: #211b3f;
+	--asso-ink: #f2efff;
+	--asso-ink-soft: #d2cdee;
+	--asso-ink-muted: #aba3d1;
+	--asso-line: rgba(188, 170, 255, 0.22);
+	--asso-shadow: rgba(5, 3, 19, 0.42);
+}
+
+.public-body[data-theme="dark"] .site-header {
+	background: linear-gradient(135deg, #161132 0%, #21194a 100%) !important;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.36) !important;
+}
+
+.public-body[data-theme="dark"] .main-nav a {
+	color: rgba(242, 239, 255, 0.86) !important;
+}
+
+.public-body[data-theme="dark"] .main-nav a:hover {
+	background: rgba(143, 134, 248, 0.16);
+	border-color: rgba(143, 134, 248, 0.28);
+}
+
+.public-body[data-theme="dark"] .card {
+	background: #1c1638 !important;
+	border-color: var(--asso-line) !important;
+	box-shadow: 0 8px 28px rgba(4, 2, 16, 0.45) !important;
+}
+
+.public-body[data-theme="dark"] p,
+.public-body[data-theme="dark"] li,
+.public-body[data-theme="dark"] strong,
+.public-body[data-theme="dark"] small {
+	color: var(--asso-ink-soft) !important;
+}
+
+.public-body[data-theme="dark"] h1,
+.public-body[data-theme="dark"] h2,
+.public-body[data-theme="dark"] h3,
+.public-body[data-theme="dark"] .section-head h2,
+.public-body[data-theme="dark"] .contact-form-card label,
+.public-body[data-theme="dark"] .contact-info-card h2,
+.public-body[data-theme="dark"] .contact-category strong {
+	color: var(--asso-ink) !important;
+}
+
+.public-body[data-theme="dark"] input,
+.public-body[data-theme="dark"] textarea,
+.public-body[data-theme="dark"] select,
+.public-body[data-theme="dark"] .contact-form-card input,
+.public-body[data-theme="dark"] .contact-form-card textarea,
+.public-body[data-theme="dark"] .contact-form-card select {
+	background: #221c46 !important;
+	color: var(--asso-ink) !important;
+	border-color: rgba(143, 134, 248, 0.32) !important;
+}
+
+.public-body[data-theme="dark"] .contact-field-group,
+.public-body[data-theme="dark"] .contact-field-group .contact-form-row > label,
+.public-body[data-theme="dark"] .contact-category,
+.public-body[data-theme="dark"] .contact-info-note {
+	background: #201a40 !important;
+	border-color: rgba(143, 134, 248, 0.28) !important;
+}
+
 /* ---- BASE ---- */
 .public-body {
 	background: var(--asso-bg) !important;
