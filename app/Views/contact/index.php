@@ -3,7 +3,7 @@
     <p class="contact-kicker"><i class="fa-solid fa-envelope-open-text"></i> Contact association</p>
     <h1>Parlons de votre besoin</h1>
     <p>
-      Que ce soit pour une demande d'aide, une mission bénévole ou un partenariat,
+      Que ce soit pour une demande d'aide, rejoindre l'aventure ou un partenariat,
       l'équipe vous répond rapidement avec un suivi humain.
     </p>
   </article>
@@ -20,10 +20,10 @@
           </div>
         </article>
 
-        <article class="contact-category" data-contact-category="benevole" tabindex="0" role="button" aria-label="Choisir devenir bénévole">
+        <article class="contact-category" data-contact-category="benevole" tabindex="0" role="button" aria-label="Choisir rejoindre l'aventure">
           <span class="contact-category-icon" aria-hidden="true"><i class="fa-solid fa-handshake-angle"></i></span>
           <div>
-            <strong>Devenir bénévole</strong>
+            <strong>Rejoindre l'aventure</strong>
             <p>Participez aux actions de terrain selon vos disponibilités.</p>
           </div>
         </article>
@@ -54,7 +54,7 @@
             Motif du contact
             <select name="category" id="contactCategory" required>
               <option value="aide">Demander de l'aide</option>
-              <option value="benevole">Devenir bénévole</option>
+              <option value="benevole">Rejoindre l'aventure</option>
               <option value="partenariat">Proposition de partenariat</option>
               <option value="general" selected>Question générale</option>
             </select>

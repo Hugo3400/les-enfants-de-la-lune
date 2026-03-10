@@ -201,6 +201,8 @@ final class Database
                     rental_id INT UNSIGNED NOT NULL,
                     assigned_at DATE NOT NULL,
                     released_at DATE NULL,
+                    lease_duration_value INT UNSIGNED NULL,
+                    lease_duration_unit VARCHAR(10) NULL,
                     status VARCHAR(20) NOT NULL DEFAULT "active",
                     notes TEXT NULL,
                     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -323,6 +325,8 @@ final class Database
                     rental_id INTEGER NOT NULL,
                     assigned_at TEXT NOT NULL,
                     released_at TEXT,
+                    lease_duration_value INTEGER,
+                    lease_duration_unit TEXT,
                     status TEXT NOT NULL DEFAULT "active",
                     notes TEXT,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -335,6 +339,7 @@ final class Database
         self::ensurePostColumns($pdo, $driver);
         self::ensureEventColumns($pdo, $driver);
         self::ensureUserColumns($pdo, $driver);
+        self::ensureMemberRentalColumns($pdo, $driver);
         self::seedAccountingAccounts($pdo, $driver);
 
         $count = (int) $pdo->query('SELECT COUNT(*) FROM users')->fetchColumn();
@@ -415,6 +420,18 @@ final class Database
 
         self::tryExec($pdo, 'ALTER TABLE posts ADD COLUMN theme TEXT NOT NULL DEFAULT "general"');
         self::tryExec($pdo, 'CREATE INDEX IF NOT EXISTS idx_posts_theme ON posts (theme)');
+    }
+
+    private static function ensureMemberRentalColumns(PDO $pdo, string $driver): void
+    {
+        if ($driver === 'mysql') {
+            self::tryExec($pdo, 'ALTER TABLE member_rentals ADD COLUMN lease_duration_value INT UNSIGNED NULL');
+            self::tryExec($pdo, 'ALTER TABLE member_rentals ADD COLUMN lease_duration_unit VARCHAR(10) NULL');
+            return;
+        }
+
+        self::tryExec($pdo, 'ALTER TABLE member_rentals ADD COLUMN lease_duration_value INTEGER');
+        self::tryExec($pdo, 'ALTER TABLE member_rentals ADD COLUMN lease_duration_unit TEXT');
     }
 
     private static function ensureEventColumns(PDO $pdo, string $driver): void

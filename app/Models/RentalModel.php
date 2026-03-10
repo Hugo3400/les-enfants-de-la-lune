@@ -122,7 +122,14 @@ final class RentalModel
     }
 
     /** Attribuer une location à un membre */
-    public static function assign(int $rentalId, int $memberId, string $assignedAt, ?string $notes = null): void
+    public static function assign(
+        int $rentalId,
+        int $memberId,
+        string $assignedAt,
+        ?int $leaseDurationValue = null,
+        ?string $leaseDurationUnit = null,
+        ?string $notes = null
+    ): void
     {
         $pdo = Database::connection();
 
@@ -135,13 +142,15 @@ final class RentalModel
 
         // Créer la nouvelle
         $stmt = $pdo->prepare(
-            'INSERT INTO member_rentals (member_id, rental_id, assigned_at, status, notes)
-             VALUES (:member_id, :rental_id, :assigned_at, "active", :notes)'
+            'INSERT INTO member_rentals (member_id, rental_id, assigned_at, lease_duration_value, lease_duration_unit, status, notes)
+             VALUES (:member_id, :rental_id, :assigned_at, :lease_duration_value, :lease_duration_unit, "active", :notes)'
         );
         $stmt->execute([
             ':member_id'   => $memberId,
             ':rental_id'   => $rentalId,
             ':assigned_at' => $assignedAt,
+            ':lease_duration_value' => $leaseDurationValue,
+            ':lease_duration_unit' => $leaseDurationUnit,
             ':notes'       => $notes,
         ]);
 

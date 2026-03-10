@@ -56,7 +56,7 @@
 <section class="card live-strip">
 	<div class="section-head">
 		<h2>Nos actions concrètes</h2>
-		<a href="/contact">Rejoindre l'équipe</a>
+		<a href="/contact">Rejoindre l'aventure</a>
 	</div>
 	<div class="live-grid">
 		<article class="live-item">
@@ -118,7 +118,7 @@
 		<ul>
 			<li>Nouveaux arrivants à Blaine County</li>
 			<li>Habitants traversant une période difficile</li>
-			<li>Bénévoles, commerces et entreprises solidaires</li>
+			<li>Habitants, commerces et entreprises solidaires</li>
 		</ul>
 	</article>
 </section>
@@ -129,8 +129,8 @@
 	</div>
 	<div class="help-grid">
 		<article class="card impact-card">
-			<h3>Devenir bénévole</h3>
-			<p>Votre temps fait la différence. Rejoignez notre équipe terrain pour l'accueil et l'accompagnement.</p>
+			<h3>Rejoindre l'aventure</h3>
+			<p>Participez à nos actions selon vos disponibilités et contribuez à l'accompagnement du quartier.</p>
 		</article>
 		<article class="card impact-card">
 			<h3>Faire un don</h3>
@@ -153,7 +153,7 @@
 <section class="card home-cta">
 	<h2>Nous avons besoin de vous</h2>
 	<ul class="soft-list">
-		<li>Bénévoles pour les permanences d'accueil</li>
+		<li>Renforts pour les permanences d'accueil</li>
 		<li>Partenaires mobilité et transport</li>
 		<li>Parrainages pour les nouveaux arrivants</li>
 	</ul>

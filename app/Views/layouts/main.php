@@ -26,7 +26,7 @@
     $mainJsVersion = is_file($mainJsPath) ? (string) (filemtime($mainJsPath) ?: time()) : null;
   ?>
 </head>
-<body class="public-body" data-theme="light">
+<body class="public-body" data-theme="dark">
   <header class="site-header">
     <div class="wrap header-inner">
       <a href="/" class="brand">

@@ -139,7 +139,7 @@
       if (subjectField && !subjectField.value.trim()) {
         const labels = {
           aide: 'Demande d’aide',
-          benevole: 'Candidature bénévole',
+          benevole: 'Rejoindre l’aventure',
           partenariat: 'Proposition de partenariat'
         };
         subjectField.value = labels[categoryValue] || subjectField.value;

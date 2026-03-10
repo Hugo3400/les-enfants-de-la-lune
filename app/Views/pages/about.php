@@ -17,7 +17,7 @@
         Les Enfants de la Lune ont vu le jour quand un groupe de voisins
         a décidé qu'il fallait un point d'ancrage pour l'entraide locale.
         Depuis, l'association n'a cessé de grandir grâce à l'engagement
-        de bénévoles et au soutien de la communauté.
+        des habitants et au soutien de la communauté.
       </p>
       <p>
         Notre nom symbolise ceux qui veillent dans l'ombre, discrets
@@ -38,7 +38,7 @@
     <article class="card">
       <h2>Notre fonctionnement</h2>
       <p>
-        L'association est portée par des bénévoles qui donnent de leur temps
+        L'association est portée par des habitants engagés qui donnent de leur temps
         chaque semaine. Un bureau de 3 membres coordonne les actions et assure
         la gestion quotidienne.
       </p>
@@ -82,7 +82,7 @@
     <div class="about-stats">
       <div class="about-stat">
         <strong>12+</strong>
-        <p>Bénévoles actifs</p>
+        <p>Acteurs engagés</p>
       </div>
       <div class="about-stat">
         <strong>30+</strong>
@@ -101,7 +101,7 @@
 
   <section class="card home-cta">
     <h2>Envie de nous rejoindre ?</h2>
-    <p>Que vous souhaitiez devenir bénévole, proposer un partenariat ou simplement en savoir plus, n'hésitez pas à nous écrire.</p>
+    <p>Que vous souhaitiez rejoindre l'aventure, proposer un partenariat ou simplement en savoir plus, n'hésitez pas à nous écrire.</p>
     <div class="actions-row" style="margin-top: 12px;">
       <a class="button-link" href="/contact">Nous contacter</a>
       <a class="button-secondary" href="/actualites">Nos actualités</a>

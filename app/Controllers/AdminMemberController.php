@@ -145,6 +145,8 @@ final class AdminMemberController
 
         $rentalId = (int) ($_POST['rental_id'] ?? 0);
         $assignedAt = trim((string) ($_POST['assigned_at'] ?? date('Y-m-d')));
+        $leaseDurationValue = (int) ($_POST['lease_duration_value'] ?? 0);
+        $leaseDurationUnit = trim((string) ($_POST['lease_duration_unit'] ?? 'month'));
         $notes = trim((string) ($_POST['rental_notes'] ?? ''));
 
         if ($rentalId <= 0) {
@@ -153,7 +155,24 @@ final class AdminMemberController
             return;
         }
 
-        MemberModel::assignRental($id, $rentalId, $assignedAt, $notes ?: null);
+        if ($leaseDurationValue <= 0) {
+            Flash::set('error', 'Veuillez saisir une durée de bail valide.');
+            header('Location: /admin/membres/' . $id . '/edit');
+            return;
+        }
+
+        if (!in_array($leaseDurationUnit, ['month', 'year'], true)) {
+            $leaseDurationUnit = 'month';
+        }
+
+        MemberModel::assignRental(
+            $id,
+            $rentalId,
+            $assignedAt,
+            $leaseDurationValue,
+            $leaseDurationUnit,
+            $notes ?: null
+        );
         Flash::set('success', 'Logement attribué avec succès.');
         header('Location: /admin/membres/' . $id . '/edit');
     }
