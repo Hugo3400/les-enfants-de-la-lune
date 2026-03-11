@@ -509,3 +509,9 @@ color: #f2efff;
 background: #6957d8;
 color: #ffffff;
 }
+
+/* Élargir le wrap en admin pour les grandes tables */
+.admin-body .wrap {
+  width: min(100%, 1680px);
+}
+
