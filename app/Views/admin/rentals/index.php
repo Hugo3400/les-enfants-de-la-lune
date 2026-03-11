@@ -6,8 +6,15 @@
 
   <p>Gère la disponibilité des biens, les attributions aux membres et leurs informations.</p>
 
+  <?php $currentZone = (string) ($zoneFilter ?? 'all'); ?>
+  <div class="admin-rentals-filters" role="group" aria-label="Filtres zones locations">
+    <a href="/admin/locations" class="button-secondary <?= $currentZone === 'all' ? 'is-active' : '' ?>">Toutes les zones</a>
+    <a href="/admin/locations?zone=paleto" class="button-secondary <?= $currentZone === 'paleto' ? 'is-active' : '' ?>">Paleto Bay</a>
+    <a href="/admin/locations?zone=route68" class="button-secondary <?= $currentZone === 'route68' ? 'is-active' : '' ?>">Sandy Shores (Route 68)</a>
+  </div>
+
   <?php if (empty($rentals)): ?>
-    <p>Aucune location enregistrée.</p>
+    <p>Aucune location trouvée pour ce filtre.</p>
   <?php else: ?>
     <div class="table-wrap">
       <table>

@@ -102,10 +102,10 @@ final class RentalModel
     }
 
     /** Récupère toutes les locations avec leurs occupants actuels */
-    public static function allWithAssignees(): array
+    public static function allWithAssignees(string $zoneFilter = 'all'): array
     {
         $pdo = Database::connection();
-        $rows = $pdo->query(
+        $sql =
             'SELECT r.*,
                     mr.id AS assignment_id,
                     mr.member_id,
@@ -115,9 +115,23 @@ final class RentalModel
                     m.last_name
              FROM rentals r
              LEFT JOIN member_rentals mr ON mr.rental_id = r.id AND mr.status = "active"
-             LEFT JOIN members m ON m.id = mr.member_id
-             ORDER BY r.created_at DESC'
-        )->fetchAll();
+             LEFT JOIN members m ON m.id = mr.member_id';
+
+        $params = [];
+        if ($zoneFilter === 'paleto') {
+            $sql .= ' WHERE LOWER(r.location_label) LIKE :paleto';
+            $params[':paleto'] = '%paleto bay%';
+        } elseif ($zoneFilter === 'route68') {
+            $sql .= ' WHERE LOWER(r.location_label) LIKE :sandy OR LOWER(r.location_label) LIKE :route68';
+            $params[':sandy'] = '%sandy shores%';
+            $params[':route68'] = '%route 68%';
+        }
+
+        $sql .= ' ORDER BY r.created_at DESC';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $rows = $stmt->fetchAll();
         return $rows;
     }
 

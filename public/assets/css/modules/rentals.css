@@ -9,6 +9,24 @@
 	margin-bottom: 14px;
 }
 
+.admin-rentals-filters {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: 0 0 14px;
+}
+
+.admin-rentals-filters .button-secondary {
+	padding: 7px 12px;
+	font-size: .82rem;
+}
+
+.admin-rentals-filters .button-secondary.is-active {
+	font-weight: 700;
+	border-color: rgba(143, 134, 248, 0.42) !important;
+	background: rgba(143, 134, 248, 0.16) !important;
+}
+
 .admin-rentals-page .table-wrap {
 	border-radius: 12px;
 	border: 1px solid rgba(196, 180, 255, 0.18);

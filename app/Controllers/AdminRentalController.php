@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Core\Auth;
 use App\Core\Flash;
+use App\Core\Request;
 use App\Core\View;
 use App\Models\RentalModel;
 use App\Models\MemberModel;
@@ -15,9 +16,12 @@ final class AdminRentalController
     {
         Auth::requirePermission('rentals');
 
+        $zoneFilter = Request::oneOf($_GET, 'zone', ['all', 'paleto', 'route68'], 'all');
+
         View::render('admin/rentals/index', [
             'title' => 'Locations - Administration',
-            'rentals' => RentalModel::allWithAssignees(),
+            'rentals' => RentalModel::allWithAssignees($zoneFilter),
+            'zoneFilter' => $zoneFilter,
             'csrfToken' => Auth::csrfToken(),
             'pageStyles' => ['modules/rentals.css'],
         ], 'admin');
