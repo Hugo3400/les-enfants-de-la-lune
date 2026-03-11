@@ -404,3 +404,108 @@ flex-direction: column !important;
 align-items: flex-start;
 }
 }
+
+/* ============================================================
+   ADMIN DARK MODE - aligne l'admin sur la palette sombre accueil
+   ============================================================ */
+.admin-body {
+background:
+   radial-gradient(900px 420px at -5% -12%, rgba(117, 95, 255, 0.2) 0%, transparent 60%),
+   radial-gradient(900px 420px at 105% -8%, rgba(154, 130, 255, 0.16) 0%, transparent 62%),
+   radial-gradient(900px 520px at 50% 120%, rgba(126, 92, 255, 0.16) 0%, transparent 65%),
+   var(--bg) !important;
+color: var(--ink) !important;
+}
+
+.admin-body .card,
+.admin-body .admin-stat-card,
+.admin-body .admin-priority-card,
+.admin-body .admin-kpi-strip,
+.admin-body .admin-message-item,
+.admin-body .button-secondary,
+.admin-body input,
+.admin-body textarea,
+.admin-body select,
+.admin-body table {
+background: linear-gradient(160deg, rgba(41, 34, 81, 0.92) 0%, rgba(32, 27, 64, 0.94) 100%) !important;
+border-color: var(--line) !important;
+color: var(--ink) !important;
+}
+
+.admin-body .admin-kpi-item,
+.admin-body .message-unread,
+.admin-body tbody tr:nth-child(even) {
+background: rgba(105, 87, 216, 0.08) !important;
+border-color: var(--line) !important;
+}
+
+.admin-body .section-head h1,
+.admin-body .section-head h2,
+.admin-body h1,
+.admin-body h2,
+.admin-body h3,
+.admin-body label,
+.admin-body th,
+.admin-body td,
+.admin-body .admin-message-item h3,
+.admin-body .admin-stat-card strong,
+.admin-body .admin-priority-card strong,
+.admin-body .admin-kpi-item strong {
+color: var(--ink) !important;
+}
+
+.admin-body p,
+.admin-body .admin-lead,
+.admin-body .admin-stat-card p,
+.admin-body .admin-priority-card p,
+.admin-body .admin-kpi-item span,
+.admin-body .admin-message-item p,
+.admin-body .admin-message-item small,
+.admin-body .site-footer {
+color: var(--ink-soft) !important;
+}
+
+.admin-body a,
+.admin-body .admin-priority-card a,
+.admin-body .section-head a:not(.button-link):not(.button-secondary) {
+color: var(--lavender) !important;
+}
+
+.admin-body a:hover,
+.admin-body .admin-priority-card a:hover,
+.admin-body .section-head a:not(.button-link):not(.button-secondary):hover {
+color: var(--white) !important;
+}
+
+.admin-body th {
+background: rgba(52, 40, 106, 0.55) !important;
+}
+
+.admin-body tbody tr:hover {
+background: rgba(105, 87, 216, 0.16) !important;
+}
+
+.admin-body .table-wrap,
+.admin-body .admin-footer {
+border-color: var(--line) !important;
+}
+
+.admin-body .button-secondary {
+box-shadow: none !important;
+}
+
+.admin-body .button-secondary:hover {
+background: rgba(143, 134, 248, 0.16) !important;
+border-color: rgba(143, 134, 248, 0.3) !important;
+}
+
+/* Fix couleur options select dans le menu natif en mode sombre. */
+.admin-body select option {
+background: #211b3f;
+color: #f2efff;
+}
+
+.admin-body select option:checked {
+background: #6957d8;
+color: #ffffff;
+}

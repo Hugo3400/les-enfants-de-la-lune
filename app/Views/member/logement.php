@@ -1,5 +1,47 @@
 <?php
   $firstName = htmlspecialchars((string) ($member['first_name'] ?? ''));
+
+  $formatLeaseDuration = static function (array $rental): string {
+    $value = (int) ($rental['lease_duration_value'] ?? 0);
+    if ($value <= 0) {
+      return 'Non définie';
+    }
+
+    $unit = (string) ($rental['lease_duration_unit'] ?? 'month');
+    if ($unit === 'year') {
+      return $value . ' an(s)';
+    }
+
+    if ($unit === 'week') {
+      return $value . ' semaine(s)';
+    }
+
+    return $value . ' mois';
+  };
+
+  $leaseStatus = static function (array $rental): string {
+    if (($rental['status'] ?? '') !== 'active') {
+      return 'Terminé';
+    }
+
+    $value = (int) ($rental['lease_duration_value'] ?? 0);
+    if ($value <= 0 || empty($rental['assigned_at'])) {
+      return 'En cours';
+    }
+
+    $assignedAt = new DateTimeImmutable((string) $rental['assigned_at']);
+    $unit = (string) ($rental['lease_duration_unit'] ?? 'month');
+    if ($unit === 'year') {
+      $endDate = $assignedAt->modify('+' . $value . ' year');
+    } elseif ($unit === 'week') {
+      $endDate = $assignedAt->modify('+' . $value . ' week');
+    } else {
+      $endDate = $assignedAt->modify('+' . $value . ' month');
+    }
+
+    $today = new DateTimeImmutable(date('Y-m-d'));
+    return $today > $endDate ? 'Expiré' : 'En cours';
+  };
 ?>
 
 <section class="member-page">
@@ -27,8 +69,12 @@
           <span class="detail-value"><?= date('d/m/Y', strtotime($activeRental['assigned_at'])) ?></span>
         </div>
         <div class="member-rental-detail-item">
+          <span class="detail-label"><i class="fa-solid fa-hourglass-half"></i> Durée du bail</span>
+          <span class="detail-value"><?= htmlspecialchars($formatLeaseDuration($activeRental)) ?></span>
+        </div>
+        <div class="member-rental-detail-item">
           <span class="detail-label"><i class="fa-solid fa-clipboard-list"></i> Statut</span>
-          <span class="detail-value">En cours</span>
+          <span class="detail-value"><?= htmlspecialchars($leaseStatus($activeRental)) ?></span>
         </div>
       </div>
       <?php if (!empty($activeRental['rental_description'])): ?>
@@ -64,6 +110,7 @@
               <th>Logement</th>
               <th>Adresse</th>
               <th>Du</th>
+              <th>Durée</th>
               <th>Au</th>
               <th>Statut</th>
             </tr>
@@ -74,10 +121,11 @@
                 <td><?= htmlspecialchars((string) ($h['title'] ?? '')) ?></td>
                 <td><?= htmlspecialchars((string) ($h['location_label'] ?? '')) ?></td>
                 <td><?= date('d/m/Y', strtotime($h['assigned_at'])) ?></td>
+                <td><?= htmlspecialchars($formatLeaseDuration($h)) ?></td>
                 <td><?= !empty($h['released_at']) ? date('d/m/Y', strtotime($h['released_at'])) : '—' ?></td>
                 <td>
                   <span class="member-tag <?= ($h['status'] ?? '') === 'active' ? 'active' : 'released' ?>">
-                    <?= ($h['status'] ?? '') === 'active' ? 'Actif' : 'Terminé' ?>
+                    <?= htmlspecialchars($leaseStatus($h)) ?>
                   </span>
                 </td>
               </tr>

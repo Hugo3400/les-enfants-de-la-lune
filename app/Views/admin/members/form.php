@@ -97,6 +97,13 @@
           <strong>Logement actif :</strong> <?= htmlspecialchars($activeRental['title'] ?? '') ?>
           — <?= htmlspecialchars($activeRental['location_label'] ?? '') ?>
           (depuis le <?= date('d/m/Y', strtotime($activeRental['assigned_at'])) ?>)
+          <?php if (!empty($activeRental['lease_duration_value'])): ?>
+            — bail : <?= (int) $activeRental['lease_duration_value'] ?>
+            <?php
+              $activeUnit = (string) ($activeRental['lease_duration_unit'] ?? 'month');
+              echo $activeUnit === 'year' ? 'an(s)' : ($activeUnit === 'week' ? 'semaine(s)' : 'mois');
+            ?>
+          <?php endif; ?>
           <form method="post" action="/admin/membres/<?= (int) $member['id'] ?>/release-rental" style="display:inline;margin-left:12px;">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
             <input type="hidden" name="assignment_id" value="<?= (int) $activeRental['id'] ?>">
@@ -120,6 +127,21 @@
           Date d'attribution
           <input type="date" name="assigned_at" value="<?= date('Y-m-d') ?>" required>
         </label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <label>
+            Durée du bail
+            <input type="number" name="lease_duration_value" min="1" max="520" step="1" placeholder="Ex: 12" required>
+            <small>Max: 520 semaines, 120 mois, 10 annees.</small>
+          </label>
+          <label>
+            Unité
+            <select name="lease_duration_unit" required>
+              <option value="week">Semaine(s)</option>
+              <option value="month" selected>Mois</option>
+              <option value="year">Année(s)</option>
+            </select>
+          </label>
+        </div>
         <label>
           Notes (optionnel)
           <input type="text" name="rental_notes" placeholder="Remarques sur l'attribution…">
@@ -132,13 +154,24 @@
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Logement</th><th>Du</th><th>Au</th><th>Statut</th></tr>
+              <tr><th>Logement</th><th>Du</th><th>Durée</th><th>Au</th><th>Statut</th></tr>
             </thead>
             <tbody>
               <?php foreach ($rentalHistory as $h): ?>
                 <tr>
                   <td><?= htmlspecialchars($h['title'] ?? '') ?></td>
                   <td><?= date('d/m/Y', strtotime($h['assigned_at'])) ?></td>
+                  <td>
+                    <?php if (!empty($h['lease_duration_value'])): ?>
+                      <?= (int) $h['lease_duration_value'] ?>
+                      <?php
+                        $historyUnit = (string) ($h['lease_duration_unit'] ?? 'month');
+                        echo $historyUnit === 'year' ? 'an(s)' : ($historyUnit === 'week' ? 'semaine(s)' : 'mois');
+                      ?>
+                    <?php else: ?>
+                      —
+                    <?php endif; ?>
+                  </td>
                   <td><?= !empty($h['released_at']) ? date('d/m/Y', strtotime($h['released_at'])) : '—' ?></td>
                   <td><?= ($h['status'] ?? '') === 'active' ? '<i class="fa-solid fa-circle-check" style="color:#27ae60;"></i> Actif' : '<i class="fa-solid fa-stop" style="color:#95a5a6;"></i> Terminé' ?></td>
                 </tr>

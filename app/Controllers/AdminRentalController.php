@@ -150,8 +150,40 @@ final class AdminRentalController
             return;
         }
 
+        $assignedAt = trim((string) ($_POST['assigned_at'] ?? date('Y-m-d')));
+        $leaseDurationValue = (int) ($_POST['lease_duration_value'] ?? 0);
+        $leaseDurationUnit = trim((string) ($_POST['lease_duration_unit'] ?? 'month'));
+
+        if ($leaseDurationValue <= 0) {
+            Flash::set('error', 'Veuillez saisir une durée de bail valide.');
+            header('Location: /admin/locations/' . $id . '/edit');
+            return;
+        }
+
+        if (!in_array($leaseDurationUnit, ['week', 'month', 'year'], true)) {
+            $leaseDurationUnit = 'month';
+        }
+
+        if ($leaseDurationUnit === 'week' && $leaseDurationValue > 520) {
+            Flash::set('error', 'La duree en semaines ne peut pas depasser 520.');
+            header('Location: /admin/locations/' . $id . '/edit');
+            return;
+        }
+
+        if ($leaseDurationUnit === 'month' && $leaseDurationValue > 120) {
+            Flash::set('error', 'La duree en mois ne peut pas depasser 120.');
+            header('Location: /admin/locations/' . $id . '/edit');
+            return;
+        }
+
+        if ($leaseDurationUnit === 'year' && $leaseDurationValue > 10) {
+            Flash::set('error', 'La duree en annees ne peut pas depasser 10.');
+            header('Location: /admin/locations/' . $id . '/edit');
+            return;
+        }
+
         $notes = trim((string) ($_POST['assignment_notes'] ?? ''));
-        RentalModel::assign($id, $memberId, date('Y-m-d'), $notes ?: null);
+        RentalModel::assign($id, $memberId, $assignedAt, $leaseDurationValue, $leaseDurationUnit, $notes ?: null);
 
         Flash::set('success', 'Location attribuée à ' . htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) . '.');
         header('Location: /admin/locations/' . $id . '/edit');

@@ -161,8 +161,26 @@ final class AdminMemberController
             return;
         }
 
-        if (!in_array($leaseDurationUnit, ['month', 'year'], true)) {
+        if (!in_array($leaseDurationUnit, ['week', 'month', 'year'], true)) {
             $leaseDurationUnit = 'month';
+        }
+
+        if ($leaseDurationUnit === 'week' && $leaseDurationValue > 520) {
+            Flash::set('error', 'La duree en semaines ne peut pas depasser 520.');
+            header('Location: /admin/membres/' . $id . '/edit');
+            return;
+        }
+
+        if ($leaseDurationUnit === 'month' && $leaseDurationValue > 120) {
+            Flash::set('error', 'La duree en mois ne peut pas depasser 120.');
+            header('Location: /admin/membres/' . $id . '/edit');
+            return;
+        }
+
+        if ($leaseDurationUnit === 'year' && $leaseDurationValue > 10) {
+            Flash::set('error', 'La duree en annees ne peut pas depasser 10.');
+            header('Location: /admin/membres/' . $id . '/edit');
+            return;
         }
 
         MemberModel::assignRental(

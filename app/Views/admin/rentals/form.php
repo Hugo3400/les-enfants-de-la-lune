@@ -51,6 +51,14 @@
         <i class="fa-solid fa-user"></i>
         <strong><?= htmlspecialchars($assignee['first_name'] . ' ' . $assignee['last_name']) ?></strong>
         <span style="opacity:.7; margin-left:.5rem;">depuis le <?= date('d/m/Y', strtotime($assignee['assigned_at'])) ?></span>
+        <?php if (!empty($assignee['lease_duration_value'])): ?>
+          <span style="opacity:.7; margin-left:.5rem;">bail : <?= (int) $assignee['lease_duration_value'] ?>
+            <?php
+              $assigneeUnit = (string) ($assignee['lease_duration_unit'] ?? 'month');
+              echo $assigneeUnit === 'year' ? 'an(s)' : ($assigneeUnit === 'week' ? 'semaine(s)' : 'mois');
+            ?>
+          </span>
+        <?php endif; ?>
         <?php if (!empty($assignee['assignment_notes'])): ?>
           <br><small style="opacity:.6;"><i class="fa-solid fa-note-sticky"></i> <?= htmlspecialchars($assignee['assignment_notes']) ?></small>
         <?php endif; ?>
@@ -72,6 +80,11 @@
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken ?? '') ?>">
 
     <label>
+      <i class="fa-regular fa-calendar"></i> Date d'attribution
+      <input type="date" name="assigned_at" value="<?= date('Y-m-d') ?>" required>
+    </label>
+
+    <label>
       <i class="fa-solid fa-users"></i> Attribuer à un membre
       <select name="member_id" required>
         <option value="">— Sélectionner un membre —</option>
@@ -84,6 +97,23 @@
         <?php endforeach; ?>
       </select>
     </label>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <label>
+        <i class="fa-solid fa-hourglass-half"></i> Durée du bail
+        <input type="number" name="lease_duration_value" min="1" max="520" step="1" placeholder="Ex: 12" required>
+        <small>Max: 520 semaines, 120 mois, 10 annees.</small>
+      </label>
+
+      <label>
+        <i class="fa-solid fa-calendar-days"></i> Unité
+        <select name="lease_duration_unit" required>
+          <option value="week">Semaine(s)</option>
+          <option value="month" selected>Mois</option>
+          <option value="year">Année(s)</option>
+        </select>
+      </label>
+    </div>
 
     <label>
       <i class="fa-solid fa-note-sticky"></i> Notes (optionnel)
@@ -105,6 +135,7 @@
         <tr>
           <th>Membre</th>
           <th>Attribué le</th>
+          <th>Durée</th>
           <th>Libéré le</th>
           <th>Statut</th>
           <th>Notes</th>
@@ -115,6 +146,17 @@
           <tr>
             <td><?= htmlspecialchars($h['first_name'] . ' ' . $h['last_name']) ?></td>
             <td><?= date('d/m/Y', strtotime($h['assigned_at'])) ?></td>
+            <td>
+              <?php if (!empty($h['lease_duration_value'])): ?>
+                <?= (int) $h['lease_duration_value'] ?>
+                <?php
+                  $historyUnit = (string) ($h['lease_duration_unit'] ?? 'month');
+                  echo $historyUnit === 'year' ? 'an(s)' : ($historyUnit === 'week' ? 'semaine(s)' : 'mois');
+                ?>
+              <?php else: ?>
+                —
+              <?php endif; ?>
+            </td>
             <td><?= $h['released_at'] ? date('d/m/Y', strtotime($h['released_at'])) : '—' ?></td>
             <td>
               <span class="status-pill <?= $h['status'] === 'active' ? 'status-available' : 'status-unavailable' ?>">

@@ -26,6 +26,11 @@
     <div class="cards">
       <?php foreach ($posts as $post): ?>
         <article class="card">
+          <?php
+            $createdAtRaw = (string) ($post['created_at'] ?? '');
+            $createdAtTs = strtotime($createdAtRaw);
+            $createdAtLabel = $createdAtTs ? date('d/m/Y', $createdAtTs) : $createdAtRaw;
+          ?>
           <h2>
             <a href="/actualites/<?= urlencode((string) $post['slug']) ?>">
               <?= htmlspecialchars((string) $post['title']) ?>
@@ -36,7 +41,7 @@
           <?php if (!empty($post['excerpt'])): ?>
             <p><?= nl2br(htmlspecialchars((string) $post['excerpt'])) ?></p>
           <?php endif; ?>
-          <small>Publié le <?= htmlspecialchars((string) $post['created_at']) ?></small>
+          <small>Publié le <?= htmlspecialchars($createdAtLabel) ?></small>
         </article>
       <?php endforeach; ?>
     </div>

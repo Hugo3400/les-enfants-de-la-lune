@@ -419,6 +419,25 @@
 	color: var(--asso-ink-soft) !important;
 }
 
+/* Assure un contraste lisible dans la section en mode sombre. */
+.public-body[data-theme="dark"] .live-strip {
+	background: #211b3f !important;
+	border-color: rgba(188, 170, 255, 0.26) !important;
+}
+
+.public-body[data-theme="dark"] .live-item {
+	background: #2a2250 !important;
+	border-color: rgba(188, 170, 255, 0.3) !important;
+}
+
+.public-body[data-theme="dark"] .live-item strong {
+	color: #f2efff !important;
+}
+
+.public-body[data-theme="dark"] .live-item p {
+	color: #d2cdee !important;
+}
+
 /* ---- VALUES CARDS ---- */
 .public-body .home-values .card {
 	background: var(--asso-bg-warm) !important;
@@ -433,6 +452,8 @@
 
 .public-body .blog-article-card {
 	padding: 26px;
+	min-width: 0;
+	overflow: hidden;
 }
 
 .public-body .blog-article-meta {
@@ -498,6 +519,56 @@
 	font-size: .92em;
 }
 
+.public-body .blog-article-card h1,
+.public-body .blog-article-meta,
+.public-body .blog-article-excerpt,
+.public-body .blog-article-excerpt strong,
+.public-body .blog-article-content p,
+.public-body .blog-article-content li,
+.public-body .blog-article-content blockquote,
+.public-body .blog-article-content a,
+.public-body .blog-article-content code {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+/* Cartes actualites: contraste stable en dark mode. */
+.public-body[data-theme="dark"] .cards .card h2,
+.public-body[data-theme="dark"] .cards .card h3,
+.public-body[data-theme="dark"] .cards .card h2 a,
+.public-body[data-theme="dark"] .cards .card h3 a {
+	color: #f2efff !important;
+}
+
+.public-body[data-theme="dark"] .cards .card h2 a:hover,
+.public-body[data-theme="dark"] .cards .card h3 a:hover {
+	color: #cfc9f8 !important;
+}
+
+.public-body[data-theme="dark"] .cards .card p {
+	color: #d2cdee !important;
+}
+
+.public-body[data-theme="dark"] .cards .card small {
+	color: #b9b1de !important;
+}
+
+/* Evite les depassements sur les textes longs (actus, filtres, URLs). */
+.public-body .cards .card {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.public-body .cards .card h2,
+.public-body .cards .card h3,
+.public-body .cards .card p,
+.public-body .cards .card small,
+.public-body .cards .card a,
+.public-body .section-head .button-secondary {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
 .public-body .home-values ul {
 	padding-left: 18px;
 }
@@ -535,6 +606,24 @@
 
 .public-body .impact-card p {
 	color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.public-body[data-theme="dark"] .section-block {
+	background: #1f193b !important;
+	border: 1px solid rgba(188, 170, 255, 0.24) !important;
+}
+
+.public-body[data-theme="dark"] .section-block .section-head h2 {
+	color: #f2efff !important;
+}
+
+.public-body[data-theme="dark"] .impact-card {
+	background: #241d46 !important;
+	border-color: rgba(188, 170, 255, 0.28) !important;
+}
+
+.public-body[data-theme="dark"] .impact-card p {
+	color: #d2cdee !important;
 }
 
 /* ---- QUOTE ---- */
