@@ -18,7 +18,7 @@ final class AdminMemberController
 
         View::render('admin/members/index', [
             'title' => 'Membres - Administration',
-            'members' => MemberModel::all(),
+            'members' => MemberModel::allWithActiveRentals(),
             'roles' => MemberModel::ROLES,
             'statuses' => MemberModel::STATUSES,
             'csrfToken' => Auth::csrfToken(),
@@ -217,15 +217,27 @@ final class AdminMemberController
     private function sanitize(): array
     {
         return [
-            'first_name' => trim((string) ($_POST['first_name'] ?? '')),
-            'last_name'  => trim((string) ($_POST['last_name'] ?? '')),
-            'email'      => mb_strtolower(trim((string) ($_POST['email'] ?? ''))),
-            'phone'      => trim((string) ($_POST['phone'] ?? '')),
-            'role'       => trim((string) ($_POST['role'] ?? 'membre')),
-            'status'     => trim((string) ($_POST['status'] ?? 'active')),
-            'user_id'    => trim((string) ($_POST['user_id'] ?? '')),
-            'joined_at'  => trim((string) ($_POST['joined_at'] ?? '')),
-            'notes'      => trim((string) ($_POST['notes'] ?? '')),
+            'first_name'           => trim((string) ($_POST['first_name'] ?? '')),
+            'last_name'            => trim((string) ($_POST['last_name'] ?? '')),
+            'email'                => mb_strtolower(trim((string) ($_POST['email'] ?? ''))),
+            'phone'                => trim((string) ($_POST['phone'] ?? '')),
+            'role'                 => trim((string) ($_POST['role'] ?? 'membre')),
+            'status'               => trim((string) ($_POST['status'] ?? 'active')),
+            'user_id'              => trim((string) ($_POST['user_id'] ?? '')),
+            'joined_at'            => trim((string) ($_POST['joined_at'] ?? '')),
+            'notes'                => trim((string) ($_POST['notes'] ?? '')),
+            'rib'                  => trim((string) ($_POST['rib'] ?? '')),
+            'recensement_bc'       => trim((string) ($_POST['recensement_bc'] ?? '')),
+            'carte'                => trim((string) ($_POST['carte'] ?? '')),
+            'carte_validite'       => trim((string) ($_POST['carte_validite'] ?? '')),
+            'situation'            => trim((string) ($_POST['situation'] ?? '')),
+            'rdv_situation'        => trim((string) ($_POST['rdv_situation'] ?? '')),
+            'paye'                 => trim((string) ($_POST['paye'] ?? '')),
+            'coupon_classic_bikes' => max(0, (int) ($_POST['coupon_classic_bikes'] ?? 0)),
+            'coupon_seaton_sand'   => max(0, (int) ($_POST['coupon_seaton_sand'] ?? 0)),
+            'coupon_rex_dinner'    => max(0, (int) ($_POST['coupon_rex_dinner'] ?? 0)),
+            'coupon_yellow_jack'   => max(0, (int) ($_POST['coupon_yellow_jack'] ?? 0)),
+            'coupon_mojito'        => max(0, (int) ($_POST['coupon_mojito'] ?? 0)),
         ];
     }
 }

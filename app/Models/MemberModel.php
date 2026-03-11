@@ -26,7 +26,20 @@ final class MemberModel
     public static function all(): array
     {
         $pdo = Database::connection();
-        return $pdo->query('SELECT * FROM members ORDER BY last_name ASC, first_name ASC')->fetchAll();
+        return $pdo->query('SELECT * FROM members ORDER BY joined_at ASC, last_name ASC')->fetchAll();
+    }
+
+    /** Liste complète avec logement actif (JOIN) */
+    public static function allWithActiveRentals(): array
+    {
+        $pdo = Database::connection();
+        return $pdo->query(
+            'SELECT m.*, r.title AS rental_title, r.location_label AS rental_location
+             FROM members m
+             LEFT JOIN member_rentals mr ON mr.member_id = m.id AND mr.status = "active"
+             LEFT JOIN rentals r ON r.id = mr.rental_id
+             ORDER BY m.joined_at ASC, m.last_name ASC'
+        )->fetchAll();
     }
 
     public static function allActive(): array
@@ -127,19 +140,35 @@ final class MemberModel
     {
         $pdo = Database::connection();
         $stmt = $pdo->prepare(
-            'INSERT INTO members (first_name, last_name, email, phone, role, status, user_id, joined_at, notes)
-             VALUES (:first_name, :last_name, :email, :phone, :role, :status, :user_id, :joined_at, :notes)'
+            'INSERT INTO members (first_name, last_name, email, phone, role, status, user_id, joined_at, notes,
+             rib, recensement_bc, carte, carte_validite, situation, rdv_situation, paye,
+             coupon_classic_bikes, coupon_seaton_sand, coupon_rex_dinner, coupon_yellow_jack, coupon_mojito)
+             VALUES (:first_name, :last_name, :email, :phone, :role, :status, :user_id, :joined_at, :notes,
+             :rib, :recensement_bc, :carte, :carte_validite, :situation, :rdv_situation, :paye,
+             :coupon_classic_bikes, :coupon_seaton_sand, :coupon_rex_dinner, :coupon_yellow_jack, :coupon_mojito)'
         );
         $stmt->execute([
-            ':first_name' => $data['first_name'],
-            ':last_name'  => $data['last_name'],
-            ':email'      => $data['email'] ?: null,
-            ':phone'      => $data['phone'] ?: null,
-            ':role'       => $data['role'] ?? 'membre',
-            ':status'     => $data['status'] ?? 'active',
-            ':user_id'    => !empty($data['user_id']) ? (int) $data['user_id'] : null,
-            ':joined_at'  => $data['joined_at'] ?: null,
-            ':notes'      => $data['notes'] ?: null,
+            ':first_name'          => $data['first_name'],
+            ':last_name'           => $data['last_name'],
+            ':email'               => $data['email'] ?: null,
+            ':phone'               => $data['phone'] ?: null,
+            ':role'                => $data['role'] ?? 'membre',
+            ':status'              => $data['status'] ?? 'active',
+            ':user_id'             => !empty($data['user_id']) ? (int) $data['user_id'] : null,
+            ':joined_at'           => $data['joined_at'] ?: null,
+            ':notes'               => $data['notes'] ?: null,
+            ':rib'                 => $data['rib'] ?: null,
+            ':recensement_bc'      => $data['recensement_bc'] ?: null,
+            ':carte'               => $data['carte'] ?: null,
+            ':carte_validite'      => $data['carte_validite'] ?: null,
+            ':situation'           => $data['situation'] ?: null,
+            ':rdv_situation'       => $data['rdv_situation'] ?: null,
+            ':paye'                => $data['paye'] ?: null,
+            ':coupon_classic_bikes'=> (int) ($data['coupon_classic_bikes'] ?? 0),
+            ':coupon_seaton_sand'  => (int) ($data['coupon_seaton_sand'] ?? 0),
+            ':coupon_rex_dinner'   => (int) ($data['coupon_rex_dinner'] ?? 0),
+            ':coupon_yellow_jack'  => (int) ($data['coupon_yellow_jack'] ?? 0),
+            ':coupon_mojito'       => (int) ($data['coupon_mojito'] ?? 0),
         ]);
         return (int) $pdo->lastInsertId();
     }
@@ -150,20 +179,39 @@ final class MemberModel
         $stmt = $pdo->prepare(
             'UPDATE members SET first_name = :first_name, last_name = :last_name, email = :email,
              phone = :phone, role = :role, status = :status, user_id = :user_id,
-             joined_at = :joined_at, notes = :notes, updated_at = CURRENT_TIMESTAMP
+             joined_at = :joined_at, notes = :notes,
+             rib = :rib, recensement_bc = :recensement_bc, carte = :carte,
+             carte_validite = :carte_validite, situation = :situation,
+             rdv_situation = :rdv_situation, paye = :paye,
+             coupon_classic_bikes = :coupon_classic_bikes, coupon_seaton_sand = :coupon_seaton_sand,
+             coupon_rex_dinner = :coupon_rex_dinner, coupon_yellow_jack = :coupon_yellow_jack,
+             coupon_mojito = :coupon_mojito,
+             updated_at = CURRENT_TIMESTAMP
              WHERE id = :id'
         );
         $stmt->execute([
-            ':id'         => $id,
-            ':first_name' => $data['first_name'],
-            ':last_name'  => $data['last_name'],
-            ':email'      => $data['email'] ?: null,
-            ':phone'      => $data['phone'] ?: null,
-            ':role'       => $data['role'] ?? 'membre',
-            ':status'     => $data['status'] ?? 'active',
-            ':user_id'    => !empty($data['user_id']) ? (int) $data['user_id'] : null,
-            ':joined_at'  => $data['joined_at'] ?: null,
-            ':notes'      => $data['notes'] ?: null,
+            ':id'                  => $id,
+            ':first_name'          => $data['first_name'],
+            ':last_name'           => $data['last_name'],
+            ':email'               => $data['email'] ?: null,
+            ':phone'               => $data['phone'] ?: null,
+            ':role'                => $data['role'] ?? 'membre',
+            ':status'              => $data['status'] ?? 'active',
+            ':user_id'             => !empty($data['user_id']) ? (int) $data['user_id'] : null,
+            ':joined_at'           => $data['joined_at'] ?: null,
+            ':notes'               => $data['notes'] ?: null,
+            ':rib'                 => $data['rib'] ?: null,
+            ':recensement_bc'      => $data['recensement_bc'] ?: null,
+            ':carte'               => $data['carte'] ?: null,
+            ':carte_validite'      => $data['carte_validite'] ?: null,
+            ':situation'           => $data['situation'] ?: null,
+            ':rdv_situation'       => $data['rdv_situation'] ?: null,
+            ':paye'                => $data['paye'] ?: null,
+            ':coupon_classic_bikes'=> (int) ($data['coupon_classic_bikes'] ?? 0),
+            ':coupon_seaton_sand'  => (int) ($data['coupon_seaton_sand'] ?? 0),
+            ':coupon_rex_dinner'   => (int) ($data['coupon_rex_dinner'] ?? 0),
+            ':coupon_yellow_jack'  => (int) ($data['coupon_yellow_jack'] ?? 0),
+            ':coupon_mojito'       => (int) ($data['coupon_mojito'] ?? 0),
         ]);
     }
 

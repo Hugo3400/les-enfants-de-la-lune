@@ -80,6 +80,85 @@
         <textarea name="notes" rows="3" placeholder="Informations complémentaires…"><?= htmlspecialchars((string) ($member['notes'] ?? '')) ?></textarea>
       </label>
 
+      <hr style="border:none;border-top:1px solid var(--line, rgba(188,170,255,.2));margin:20px 0;">
+      <h3 style="margin:0 0 14px;font-size:1rem;">Suivi<br></h3>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <label>
+          RIB
+          <input type="text" name="rib" value="<?= htmlspecialchars((string) ($member['rib'] ?? '')) ?>" placeholder="Référence RIB (optionnel)">
+        </label>
+        <label>
+          Payé
+          <select name="paye">
+            <option value="">—</option>
+            <option value="oui" <?= ($member['paye'] ?? '') === 'oui' ? 'selected' : '' ?>>Oui</option>
+            <option value="non" <?= ($member['paye'] ?? '') === 'non' ? 'selected' : '' ?>>Non</option>
+          </select>
+        </label>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+        <label>
+          Recensement BC
+          <select name="recensement_bc">
+            <option value="">—</option>
+            <option value="oui"      <?= ($member['recensement_bc'] ?? '') === 'oui'      ? 'selected' : '' ?>>Oui</option>
+            <option value="non"      <?= ($member['recensement_bc'] ?? '') === 'non'      ? 'selected' : '' ?>>Non</option>
+            <option value="en_cours" <?= ($member['recensement_bc'] ?? '') === 'en_cours' ? 'selected' : '' ?>>En cours</option>
+          </select>
+        </label>
+        <label>
+          Carte
+          <select name="carte">
+            <option value="">—</option>
+            <option value="oui"      <?= ($member['carte'] ?? '') === 'oui'      ? 'selected' : '' ?>>Oui</option>
+            <option value="non"      <?= ($member['carte'] ?? '') === 'non'      ? 'selected' : '' ?>>Non</option>
+            <option value="en_cours" <?= ($member['carte'] ?? '') === 'en_cours' ? 'selected' : '' ?>>En cours</option>
+          </select>
+        </label>
+        <label>
+          Validité carte
+          <input type="date" name="carte_validite" value="<?= htmlspecialchars((string) ($member['carte_validite'] ?? '')) ?>">
+        </label>
+      </div>
+
+      <label>
+        Situation
+        <input type="text" name="situation" value="<?= htmlspecialchars((string) ($member['situation'] ?? '')) ?>" placeholder="Situation actuelle…">
+      </label>
+
+      <label>
+        RDV Point situation
+        <input type="date" name="rdv_situation" value="<?= htmlspecialchars((string) ($member['rdv_situation'] ?? '')) ?>">
+      </label>
+
+      <hr style="border:none;border-top:1px solid var(--line, rgba(188,170,255,.2));margin:20px 0;">
+      <h3 style="margin:0 0 14px;font-size:1rem;">Coupons</h3>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+        <label>
+          Classic Bikes
+          <input type="number" name="coupon_classic_bikes" min="0" step="1" value="<?= (int) ($member['coupon_classic_bikes'] ?? 0) ?>">
+        </label>
+        <label>
+          Seaton's Sand
+          <input type="number" name="coupon_seaton_sand" min="0" step="1" value="<?= (int) ($member['coupon_seaton_sand'] ?? 0) ?>">
+        </label>
+        <label>
+          Rex's Dinner
+          <input type="number" name="coupon_rex_dinner" min="0" step="1" value="<?= (int) ($member['coupon_rex_dinner'] ?? 0) ?>">
+        </label>
+        <label>
+          Yellow Jack
+          <input type="number" name="coupon_yellow_jack" min="0" step="1" value="<?= (int) ($member['coupon_yellow_jack'] ?? 0) ?>">
+        </label>
+        <label>
+          Mojito
+          <input type="number" name="coupon_mojito" min="0" step="1" value="<?= (int) ($member['coupon_mojito'] ?? 0) ?>">
+        </label>
+      </div>
+
       <div class="actions-row">
         <button type="submit"><?= $isEdit ? 'Enregistrer les modifications' : 'Ajouter le membre' ?></button>
         <a class="button-secondary" href="/admin/membres">Annuler</a>
