@@ -33,6 +33,7 @@
 .admin-accounting-page .accounting-hero h1 {
 	margin: 0;
 	font-size: 1.55rem;
+	color: var(--ink, #f2efff) !important;
 }
 
 .admin-accounting-page .accounting-hero p {
@@ -46,6 +47,23 @@
 	gap: 8px;
 	flex-wrap: wrap;
 	margin-top: 12px;
+}
+
+.admin-accounting-page .accounting-hero .admin-badge {
+	background: rgba(105, 87, 216, 0.16) !important;
+	border: 1px solid rgba(143, 134, 248, 0.28) !important;
+	color: var(--ink, #f2efff) !important;
+}
+
+.admin-accounting-page .accounting-hero .button-secondary {
+	color: var(--ink, #f2efff) !important;
+	background: rgba(255, 255, 255, 0.06) !important;
+	border-color: rgba(199, 194, 255, 0.24) !important;
+}
+
+.admin-accounting-page .accounting-hero .button-secondary:hover {
+	background: rgba(255, 255, 255, 0.12) !important;
+	border-color: rgba(199, 194, 255, 0.36) !important;
 }
 
 /* ---- EN‑TÊTE (titre + actions) ---- */
