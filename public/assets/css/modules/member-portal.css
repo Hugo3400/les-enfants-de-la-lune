@@ -4,23 +4,26 @@
    ════════════════════════════════════════ */
 
 :root {
-  --member-bg: #f0ecf9;
-  --member-surface: #ffffff;
-  --member-surface-soft: #f9f7ff;
-  --member-border: rgba(105, 87, 216, 0.14);
-  --member-border-strong: rgba(105, 87, 216, 0.24);
-  --member-text: #2d2640;
-  --member-heading: #1e1743;
-  --member-muted: #7c6f93;
+  --member-bg: #0f0b1f;
+  --member-surface: #171229;
+  --member-surface-soft: #21193c;
+  --member-border: rgba(199, 194, 255, 0.12);
+  --member-border-strong: rgba(199, 194, 255, 0.24);
+  --member-text: #ded9f7;
+  --member-heading: #f7f5ff;
+  --member-muted: #aaa2cf;
   --member-accent: #6957d8;
-  --member-accent-strong: #5a48c4;
-  --member-shadow: 0 2px 12px rgba(30, 23, 67, 0.06);
-  --member-shadow-hover: 0 6px 20px rgba(30, 23, 67, 0.1);
+  --member-accent-strong: #8574ef;
+  --member-shadow: 0 16px 40px rgba(3, 2, 10, 0.35);
+  --member-shadow-hover: 0 20px 48px rgba(3, 2, 10, 0.48);
 }
 
 /* ─── Header ─── */
 .member-body {
-  background: var(--member-bg);
+  background:
+    radial-gradient(circle at top left, rgba(105, 87, 216, 0.2), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(143, 134, 248, 0.16), transparent 24%),
+    linear-gradient(180deg, #0d091a 0%, var(--member-bg) 100%);
   color: var(--member-text);
   min-height: 100vh;
 }
@@ -94,6 +97,7 @@
   padding-top: 16px;
   margin-top: 32px;
   color: var(--member-muted);
+  background: transparent;
 }
 
 .member-footer a {
@@ -141,12 +145,12 @@
   background: var(--member-surface) !important;
   color: var(--member-heading) !important;
   border: 1px solid var(--member-border-strong) !important;
-  box-shadow: 0 1px 4px rgba(30, 23, 67, 0.06) !important;
+  box-shadow: 0 1px 4px rgba(3, 2, 10, 0.28) !important;
 }
 
 .member-body .button-secondary:hover {
-  background: #f5f0fa !important;
-  border-color: rgba(105, 87, 216, 0.35) !important;
+  background: var(--member-surface-soft) !important;
+  border-color: rgba(199, 194, 255, 0.32) !important;
 }
 
 .member-body button:not(.button-secondary):not(.password-toggle) {
@@ -162,8 +166,8 @@
 .member-body input,
 .member-body textarea,
 .member-body select {
-  background: var(--member-surface) !important;
-  border: 1px solid rgba(105, 87, 216, 0.2) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(199, 194, 255, 0.16) !important;
   border-radius: 10px !important;
   color: var(--member-text) !important;
 }
@@ -183,22 +187,22 @@
 }
 
 .member-body th {
-  background: #f5f0fa !important;
+  background: var(--member-surface-soft) !important;
   color: var(--member-heading) !important;
   border-color: var(--member-border) !important;
 }
 
 .member-body td {
   color: var(--member-text);
-  border-color: rgba(105, 87, 216, 0.06) !important;
+  border-color: rgba(199, 194, 255, 0.08) !important;
 }
 
 .member-body tbody tr:nth-child(even) {
-  background: rgba(105, 87, 216, 0.02);
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .member-body tbody tr:hover {
-  background: rgba(105, 87, 216, 0.06) !important;
+  background: rgba(105, 87, 216, 0.09) !important;
 }
 
 /* ─── Alerts ─── */
@@ -359,7 +363,7 @@
   align-items: center;
   gap: 10px;
   padding: 6px 0;
-  border-bottom: 1px solid rgba(105, 87, 216, 0.08);
+  border-bottom: 1px solid rgba(199, 194, 255, 0.08);
   font-size: .9rem;
   color: var(--member-text);
 }
@@ -388,7 +392,7 @@
 
 .member-posts-list li {
   padding: 6px 0;
-  border-bottom: 1px solid rgba(105, 87, 216, 0.08);
+  border-bottom: 1px solid rgba(199, 194, 255, 0.08);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -516,7 +520,7 @@
 .member-rental-notes {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(105, 87, 216, 0.08);
+  border-top: 1px solid rgba(199, 194, 255, 0.08);
 }
 
 .member-rental-description h3,
@@ -550,7 +554,7 @@
   gap: 20px;
   margin-bottom: 28px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(105, 87, 216, 0.08);
+  border-bottom: 1px solid rgba(199, 194, 255, 0.08);
 }
 
 .member-avatar {
@@ -609,14 +613,14 @@
 .member-profil-notice {
   margin-top: 24px;
   padding: 16px;
-  background: #fff8f0;
-  border: 1px solid #f0d9c4;
+  background: rgba(201, 95, 53, 0.1);
+  border: 1px solid rgba(201, 95, 53, 0.22);
   border-radius: 8px;
 }
 
 .member-profil-notice p {
   margin: 0;
-  color: #8a6a40;
+  color: #f0c9a8;
   font-size: .85rem;
   display: flex;
   align-items: center;
@@ -733,7 +737,7 @@
   border-radius: 999px;
   font-size: .72rem;
   font-weight: 600;
-  background: #efedf9;
+  background: rgba(105, 87, 216, 0.14);
   color: var(--member-accent);
 }
 
@@ -749,8 +753,8 @@
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid #ddd7f5;
-  color: #4a3fa6;
+  border: 1px solid rgba(199, 194, 255, 0.18);
+  color: #c7c2ff;
   background: var(--member-surface);
   text-decoration: none;
   font-size: .8rem;
@@ -761,7 +765,7 @@
 .member-theme-pill.is-active {
   border-color: var(--member-accent);
   color: var(--member-accent);
-  background: #f3f1fc;
+  background: rgba(105, 87, 216, 0.12);
 }
 
 /* ─── Auth override for member login ─── */
