@@ -80,7 +80,7 @@ final class AdminMemberController
             'roles' => MemberModel::ROLES,
             'statuses' => MemberModel::STATUSES,
             'users' => UserModel::all(),
-            'rentals' => RentalModel::all(),
+            'rentals' => RentalModel::allAvailable(),
             'activeRental' => MemberModel::getActiveRental($id),
             'rentalHistory' => MemberModel::getRentals($id),
             'csrfToken' => Auth::csrfToken(),
