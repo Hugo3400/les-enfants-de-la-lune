@@ -177,8 +177,8 @@
 
 .public-body .card:hover {
 	transform: translateY(-3px);
-	border-color: rgba(232, 115, 74, 0.3) !important;
-	box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1) !important;
+	border-color: rgba(143, 134, 248, 0.32) !important;
+	box-shadow: 0 10px 30px rgba(12, 7, 34, 0.16) !important;
 }
 
 /* ---- HERO ---- */
@@ -202,7 +202,7 @@
 	width: 300px;
 	height: 300px;
 	border-radius: 50%;
-	background: rgba(232, 115, 74, 0.15);
+	background: rgba(143, 134, 248, 0.18);
 	pointer-events: none;
 }
 
@@ -239,8 +239,8 @@
 }
 
 .public-body .home-pill {
-	background: rgba(232, 115, 74, 0.2) !important;
-	border: 1px solid rgba(232, 115, 74, 0.4) !important;
+	background: rgba(143, 134, 248, 0.18) !important;
+	border: 1px solid rgba(143, 134, 248, 0.3) !important;
 	color: #ffdacc !important;
 	font-size: .85rem;
 	padding: 6px 14px;
@@ -287,7 +287,7 @@
 	padding: 12px 14px;
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.12) !important;
-	background: rgba(255, 255, 255, 0.06) !important;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)) !important;
 }
 
 .public-body .showcase-card strong {
@@ -317,7 +317,7 @@
 	font-weight: 700;
 	font-size: .95rem;
 	letter-spacing: .01em;
-	box-shadow: 0 4px 14px rgba(232, 115, 74, 0.3);
+	box-shadow: 0 6px 18px rgba(105, 87, 216, 0.32);
 }
 
 .public-body .button-link::after {
@@ -326,7 +326,7 @@
 
 .public-body .button-link:hover {
 	background: var(--asso-violet-dark) !important;
-	box-shadow: 0 6px 20px rgba(232, 115, 74, 0.4) !important;
+	box-shadow: 0 10px 24px rgba(105, 87, 216, 0.38) !important;
 	transform: translateY(-2px);
 }
 
@@ -365,7 +365,11 @@
 }
 
 .public-body main.wrap > section {
-	margin-bottom: 28px;
+	margin-bottom: 32px;
+}
+
+.public-body .cards {
+	gap: 18px;
 }
 
 .public-body .section-head {
@@ -406,7 +410,7 @@
 
 .public-body .live-item:hover {
 	background: var(--asso-violet-light) !important;
-	border-color: rgba(232, 115, 74, 0.3) !important;
+	border-color: rgba(143, 134, 248, 0.32) !important;
 	transform: translateY(-2px);
 }
 
@@ -442,6 +446,10 @@
 .public-body .home-values .card {
 	background: var(--asso-bg-warm) !important;
 	border-left: 4px solid var(--asso-violet) !important;
+	display: grid;
+	gap: 0.85rem;
+	height: 100%;
+	padding: 24px !important;
 }
 
 .public-body .home-values .card h2 {
@@ -579,14 +587,67 @@
 	margin-bottom: 4px;
 }
 
+.public-body .home-rentals,
+.public-body .home-news {
+	display: grid;
+	gap: 0.85rem;
+}
+
+.public-body .home-rentals {
+	padding: 24px !important;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 245, 252, 0.96)) !important;
+}
+
+.public-body .home-rentals-grid,
+.public-body .home-news-grid {
+	align-items: stretch;
+}
+
+.public-body .home-rental-card,
+.public-body .home-news-card {
+	display: grid;
+	gap: 0.75rem;
+	height: 100%;
+	align-content: start;
+	padding: 22px !important;
+}
+
+.public-body .home-rental-card h3,
+.public-body .home-news-card h3 {
+	margin: 0;
+}
+
+.public-body .home-rental-card p,
+.public-body .home-news-card p,
+.public-body .home-news-card small {
+	margin: 0;
+}
+
+.public-body .home-rental-card .status-pill {
+	margin-top: auto;
+	justify-self: start;
+}
+
+.public-body .home-news-card small {
+	padding-top: 0.35rem;
+	color: var(--asso-ink-muted) !important;
+}
+
 /* ---- IMPACT CARDS ---- */
 .public-body .section-block {
-	background: var(--asso-navy) !important;
+	background: linear-gradient(135deg, #21194a 0%, #181334 100%) !important;
 	border-radius: 18px;
-	padding: 36px 32px;
-	margin-left: -20px;
-	margin-right: -20px;
+	padding: 32px !important;
+	margin-left: 0;
+	margin-right: 0;
+	border: 1px solid rgba(143, 134, 248, 0.16) !important;
+	box-shadow: 0 18px 42px rgba(7, 5, 20, 0.28) !important;
 	color: #fff;
+}
+
+.public-body .home-help-grid {
+	gap: 16px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .public-body .section-block .section-head h2 {
@@ -594,9 +655,13 @@
 }
 
 .public-body .impact-card {
-	background: rgba(255, 255, 255, 0.08) !important;
-	border: 1px solid rgba(255, 255, 255, 0.12) !important;
+	background: rgba(255, 255, 255, 0.06) !important;
+	border: 1px solid rgba(255, 255, 255, 0.1) !important;
 	border-left: 4px solid var(--asso-violet) !important;
+	padding: 20px !important;
+	display: grid;
+	gap: 0.75rem;
+	height: 100%;
 }
 
 .public-body .impact-card h3 {
@@ -606,6 +671,7 @@
 
 .public-body .impact-card p {
 	color: rgba(255, 255, 255, 0.75) !important;
+	margin: 0;
 }
 
 .public-body[data-theme="dark"] .section-block {
@@ -648,7 +714,7 @@
 /* ---- CTA SECTION ---- */
 .public-body .home-cta {
 	background: var(--asso-violet-light) !important;
-	border: 1px solid rgba(232, 115, 74, 0.2) !important;
+	border: 1px solid rgba(143, 134, 248, 0.2) !important;
 	text-align: center;
 	padding: 32px !important;
 }
@@ -853,7 +919,7 @@
 
 .auth-body .auth-form input:focus {
 	border-color: var(--asso-violet) !important;
-	box-shadow: 0 0 0 3px rgba(232, 115, 74, 0.15) !important;
+	box-shadow: 0 0 0 3px rgba(105, 87, 216, 0.16) !important;
 	outline: none !important;
 }
 
@@ -870,13 +936,13 @@
 	font-weight: 700;
 	font-size: 1rem;
 	cursor: pointer;
-	box-shadow: 0 4px 14px rgba(232, 115, 74, 0.3);
+	box-shadow: 0 4px 14px rgba(105, 87, 216, 0.3);
 	transition: background .2s ease, box-shadow .2s ease, transform .15s ease;
 }
 
 .auth-body .auth-form button:hover {
 	background: var(--asso-violet-dark) !important;
-	box-shadow: 0 6px 20px rgba(232, 115, 74, 0.4) !important;
+	box-shadow: 0 6px 20px rgba(105, 87, 216, 0.4) !important;
 	transform: translateY(-1px);
 }
 
@@ -915,10 +981,14 @@
 	}
 
 	.public-body .section-block {
-		padding: 28px 20px;
-		margin-left: -12px;
-		margin-right: -12px;
+		padding: 28px 20px !important;
+		margin-left: 0;
+		margin-right: 0;
 		border-radius: 14px;
+	}
+
+	.public-body .home-help-grid {
+		grid-template-columns: 1fr;
 	}
 }
 
@@ -933,9 +1003,9 @@
 	}
 
 	.public-body .section-block {
-		margin-left: -8px;
-		margin-right: -8px;
-		padding: 24px 16px;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 24px 16px !important;
 	}
 
 	.public-body .home-cta ul {

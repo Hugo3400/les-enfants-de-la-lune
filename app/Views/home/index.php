@@ -74,7 +74,7 @@
 	</div>
 </section>
 
-<section class="card">
+<section class="card home-rentals">
 	<div class="section-head">
 		<h2>Locations disponibles</h2>
 		<a href="/locations">Voir toutes les locations</a>
@@ -83,9 +83,9 @@
 	<?php if (empty($availableRentals)): ?>
 		<p>Aucune location disponible actuellement.</p>
 	<?php else: ?>
-		<div class="cards">
+		<div class="cards home-rentals-grid">
 			<?php foreach (array_slice($availableRentals, 0, 3) as $rental): ?>
-				<article class="card rental-card">
+				<article class="card rental-card home-rental-card">
 					<h3><?= htmlspecialchars((string) $rental['title']) ?></h3>
 					<p><strong>Lieu :</strong> <?= htmlspecialchars((string) $rental['location_label']) ?></p>
 					<p><strong>Prix :</strong> <?= number_format((float) $rental['price'], 2, ',', ' ') ?> €</p>
@@ -123,11 +123,11 @@
 	</article>
 </section>
 
-<section class="section-block">
+<section class="section-block home-help">
 	<div class="section-head">
 		<h2>Comment nous aider ?</h2>
 	</div>
-	<div class="help-grid">
+	<div class="help-grid home-help-grid">
 		<article class="card impact-card">
 			<h3>Rejoindre l'aventure</h3>
 			<p>Participez à nos actions selon vos disponibilités et contribuez à l'accompagnement du quartier.</p>
@@ -160,7 +160,7 @@
 	<p><a class="button-link" href="/contact">Rejoindre l'aventure</a></p>
 </section>
 
-<section>
+<section class="home-news">
 	<div class="section-head">
 		<h2>Dernières actualités</h2>
 		<a href="/actualites">Tout voir</a>
@@ -168,9 +168,9 @@
 	<?php if (empty($posts)): ?>
 		<p>Les prochaines actions seront publiées ici très bientôt.</p>
 	<?php else: ?>
-		<div class="cards">
+		<div class="cards home-news-grid">
 			<?php foreach ($posts as $post): ?>
-				<article class="card">
+				<article class="card home-news-card">
 					<?php
 						$createdAtRaw = (string) ($post['created_at'] ?? '');
 						$createdAtTs = strtotime($createdAtRaw);
