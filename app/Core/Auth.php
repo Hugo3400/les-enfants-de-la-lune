@@ -143,7 +143,19 @@ final class Auth
         if (!$user) {
             return null;
         }
-        return \App\Models\MemberModel::findByUserId((int) $user['id']);
+
+        $member = \App\Models\MemberModel::findByUserId((int) $user['id']);
+        if ($member !== null) {
+            return $member;
+        }
+
+        $member = \App\Models\MemberModel::findByEmail((string) ($user['email'] ?? ''));
+        if ($member !== null && empty($member['user_id'])) {
+            \App\Models\MemberModel::attachUser((int) $member['id'], (int) $user['id']);
+            $member['user_id'] = (int) $user['id'];
+        }
+
+        return $member;
     }
 
     /** Require a linked member profile — redirect to login or error otherwise */
@@ -202,7 +214,7 @@ final class Auth
 
     public static function isAdmin(): bool
     {
-        return self::role() === 'admin';
+        return in_array(self::role(), ['webmaster', 'admin'], true);
     }
 
     public static function can(string $permission): bool

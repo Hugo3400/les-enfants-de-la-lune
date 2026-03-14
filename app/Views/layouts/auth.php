@@ -18,5 +18,8 @@
   <main class="auth-wrap">
     <?= $content ?>
   </main>
+  <footer class="site-footer wrap">
+    <small>© <?= date('Y') ?> Les Enfants de la Lune · Développé par <a href="https://nexadev.fr/" target="_blank" rel="noopener">NexaDev</a></small>
+  </footer>
 </body>
 </html>

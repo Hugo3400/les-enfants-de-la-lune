@@ -12,6 +12,42 @@
 	box-sizing: border-box;
 }
 
+/* ---- HERO ---- */
+.admin-accounting-page .accounting-hero {
+	padding: 18px 20px;
+	border: 1px solid rgba(143, 134, 248, 0.22);
+	border-radius: 14px;
+	background:
+		radial-gradient(110% 130% at 0% 0%, rgba(143, 134, 248, 0.2), transparent 58%),
+		linear-gradient(160deg, rgba(41, 34, 81, 0.92), rgba(32, 27, 64, 0.94));
+}
+
+.admin-accounting-page .accounting-hero-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 14px;
+	flex-wrap: wrap;
+}
+
+.admin-accounting-page .accounting-hero h1 {
+	margin: 0;
+	font-size: 1.55rem;
+}
+
+.admin-accounting-page .accounting-hero p {
+	margin: 5px 0 0;
+	color: var(--ink-soft, #cbc3f7);
+	font-size: .9rem;
+}
+
+.admin-accounting-page .accounting-hero-meta {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-top: 12px;
+}
+
 /* ---- EN‑TÊTE (titre + actions) ---- */
 .admin-accounting-page > .section-head {
 	display: flex;
@@ -47,14 +83,47 @@
 	padding: 20px;
 }
 
+.admin-accounting-page .accounting-toolbar-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+}
+
 .admin-accounting-page .accounting-toolbar h2 {
-	margin: 0 0 14px;
+	margin: 0;
 	font-size: 1.05rem;
+}
+
+.admin-accounting-page .accounting-active-filters {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.admin-accounting-page .accounting-filter-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 4px 9px;
+	border-radius: 999px;
+	font-size: .75rem;
+	font-weight: 600;
+	color: var(--ink-soft, #cbc3f7);
+	background: rgba(143, 134, 248, 0.14);
+	border: 1px solid rgba(143, 134, 248, 0.24);
+}
+
+.admin-accounting-page .accounting-no-filter {
+	font-size: .8rem;
+	color: var(--ink-soft, #cbc3f7);
+	opacity: .9;
 }
 
 .admin-accounting-page .accounting-filters {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 14px;
 	align-items: end;
 }
@@ -146,8 +215,8 @@
 /* KPI (période) */
 .admin-accounting-page .accounting-kpi {
 	padding: 18px 20px;
-	border: 1px solid rgba(0, 0, 0, 0.08);
-	background: #ffffff;
+	border: 1px solid rgba(143, 134, 248, 0.22);
+	background: linear-gradient(160deg, rgba(41, 34, 81, 0.92), rgba(32, 27, 64, 0.94));
 	border-left: 4px solid #6957d8;
 	border-radius: 12px;
 }
@@ -155,7 +224,7 @@
 .admin-accounting-page .accounting-kpi p {
 	margin: 0;
 	font-size: .88rem;
-	color: #5a5a5a !important;
+	color: var(--ink-soft, #cbc3f7) !important;
 }
 
 .admin-accounting-page .accounting-kpi strong {
@@ -164,13 +233,13 @@
 	font-size: 1.5rem;
 	line-height: 1.15;
 	font-variant-numeric: tabular-nums;
-	color: #1e1743;
+	color: var(--ink, #f2efff);
 }
 
 .admin-accounting-page .accounting-kpi small {
 	display: block;
 	margin-top: 7px;
-	color: #8a8a8a !important;
+	color: var(--ink-soft, #cbc3f7) !important;
 	font-size: .82rem;
 }
 
@@ -192,20 +261,20 @@
 
 /* Stat cards (global) */
 .admin-accounting-page .admin-stat-card {
-	background: #ffffff !important;
+	background: linear-gradient(160deg, rgba(41, 34, 81, 0.92), rgba(32, 27, 64, 0.94)) !important;
 	border-left: 4px solid #6957d8 !important;
 	padding: 18px 20px;
 	border-radius: 12px !important;
 }
 
 .admin-accounting-page .admin-stat-card p {
-	color: #5a5a5a !important;
+	color: var(--ink-soft, #cbc3f7) !important;
 	margin: 0;
 	font-size: .88rem;
 }
 
 .admin-accounting-page .admin-stat-card strong {
-	color: #1e1743 !important;
+	color: var(--ink, #f2efff) !important;
 	display: block;
 	margin-top: 8px;
 	font-size: 1.5rem;
@@ -216,7 +285,7 @@
 .admin-accounting-page .admin-stat-card small {
 	display: block;
 	margin-top: 6px;
-	color: #8a8a8a !important;
+	color: var(--ink-soft, #cbc3f7) !important;
 	font-size: .8rem;
 }
 
@@ -242,14 +311,14 @@
 .admin-accounting-page .accounting-note {
 	margin: 4px 0 12px;
 	font-size: .9rem;
-	color: #5a5a5a !important;
+	color: var(--ink-soft, #cbc3f7) !important;
 }
 
 /* ---- TABLEAUX ---- */
 .admin-accounting-page .accounting-table-wrap {
 	margin-top: 8px;
 	border-radius: 12px;
-	border: 1px solid rgba(0, 0, 0, 0.08);
+	border: 1px solid rgba(143, 134, 248, 0.2);
 	overflow-x: auto;
 }
 
@@ -258,22 +327,26 @@
 }
 
 .admin-accounting-page .accounting-journal {
-	min-width: 1400px;
+	min-width: 1520px;
+}
+
+.admin-accounting-page .accounting-journal td:nth-child(9) {
+	white-space: nowrap;
 }
 
 .admin-accounting-page .accounting-empty-row {
 	text-align: center;
 	padding: 24px 14px;
 	font-weight: 600;
-	color: #8a8a8a !important;
-	background: #faf8f5;
+	color: var(--ink-soft, #cbc3f7) !important;
+	background: rgba(255, 255, 255, 0.04);
 }
 
-.admin-accounting-page .accounting-journal td:nth-child(9) {
+.admin-accounting-page .accounting-journal td:nth-child(10) {
 	min-width: 200px;
 }
 
-.admin-accounting-page .accounting-journal td:nth-child(13) {
+.admin-accounting-page .accounting-journal td:nth-child(14) {
 	max-width: 260px;
 }
 
@@ -291,7 +364,7 @@
 .admin-accounting-page .journal-code {
 	font-weight: 700;
 	letter-spacing: .03em;
-	color: #1e1743 !important;
+	color: var(--lavender, #c7c2ff) !important;
 }
 
 .admin-accounting-page .accounting-pill {
@@ -339,16 +412,19 @@
 	font-size: .82rem;
 	letter-spacing: .03em;
 	text-transform: uppercase;
-	background: #f7f5f2 !important;
-	color: #1e1743 !important;
+	background: rgba(255, 255, 255, 0.06) !important;
+	color: var(--ink, #f2efff) !important;
+	position: sticky;
+	top: 0;
+	z-index: 2;
 }
 
 .admin-accounting-page tbody tr:nth-child(even) {
-	background: rgba(0, 0, 0, 0.018);
+	background: rgba(255, 255, 255, 0.02);
 }
 
 .admin-accounting-page tbody tr:hover {
-	background: rgba(232, 115, 74, 0.06) !important;
+	background: rgba(143, 134, 248, 0.12) !important;
 }
 
 .admin-accounting-page .entry-income td:first-child {
@@ -360,9 +436,47 @@
 }
 
 .admin-accounting-page tfoot th {
-	background: #f0ece7 !important;
+	background: rgba(255, 255, 255, 0.08) !important;
 	font-weight: 800;
-	color: #1e1743 !important;
+	color: var(--ink, #f2efff) !important;
+}
+
+.admin-accounting-page .accounting-summary-grid-extended {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.admin-accounting-page .accounting-partner-grid {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.admin-accounting-page .accounting-partner-item {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 12px 14px;
+	border-radius: 10px;
+	border: 1px solid rgba(143, 134, 248, 0.22);
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-accounting-page .accounting-partner-item span {
+	font-size: .82rem;
+	color: var(--ink-soft, #cbc3f7);
+}
+
+.admin-accounting-page .accounting-partner-item strong {
+	font-size: 1.05rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.admin-accounting-page .accounting-partner-item.is-positive strong {
+	color: #4ee899;
+}
+
+.admin-accounting-page .accounting-partner-item.is-negative strong {
+	color: #ff8e8e;
 }
 
 .admin-accounting-page tfoot .amount-col {
@@ -376,8 +490,17 @@
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 900px) {
+	.admin-accounting-page .accounting-hero-head {
+		align-items: stretch;
+	}
+
 	.admin-accounting-page .admin-stats-grid,
-	.admin-accounting-page .accounting-summary-grid {
+	.admin-accounting-page .accounting-summary-grid,
+	.admin-accounting-page .accounting-summary-grid-extended {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.admin-accounting-page .accounting-partner-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
@@ -387,6 +510,10 @@
 
 	.admin-accounting-page .accounting-head-actions {
 		width: 100%;
+	}
+
+	.admin-accounting-page .accounting-toolbar-head {
+		flex-direction: column;
 	}
 
 	.admin-accounting-page .accounting-entry-form {
@@ -400,7 +527,12 @@
 
 @media (max-width: 640px) {
 	.admin-accounting-page .admin-stats-grid,
-	.admin-accounting-page .accounting-summary-grid {
+	.admin-accounting-page .accounting-summary-grid,
+	.admin-accounting-page .accounting-summary-grid-extended {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-accounting-page .accounting-partner-grid {
 		grid-template-columns: 1fr;
 	}
 

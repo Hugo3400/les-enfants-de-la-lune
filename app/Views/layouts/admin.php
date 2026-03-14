@@ -61,7 +61,7 @@
   </main>
 
   <footer class="site-footer wrap admin-footer">
-    <small>© <?= date('Y') ?> Les Enfants de la Lune · Panel administration</small>
+    <small>© <?= date('Y') ?> Les Enfants de la Lune · Panel administration · Développé par <a href="https://nexadev.fr/" target="_blank" rel="noopener">NexaDev</a></small>
   </footer>
 </body>
 </html>

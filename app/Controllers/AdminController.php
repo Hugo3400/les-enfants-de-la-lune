@@ -81,6 +81,7 @@ final class AdminController
             'title' => 'Messages - Administration',
             'messages' => ContactMessageModel::latest(50),
             'csrfToken' => Auth::csrfToken(),
+            'pageStyles' => ['modules/messages.css'],
         ], 'admin');
     }
 

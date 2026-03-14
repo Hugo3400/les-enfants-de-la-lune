@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Core\Auth;
 use App\Core\Flash;
+use App\Core\Request;
 use App\Core\View;
 use App\Models\MemberModel;
 use App\Models\RentalModel;
@@ -16,11 +17,29 @@ final class AdminMemberController
     {
         Auth::requirePermission('members');
 
+        $filters = [
+            'q' => Request::str($_GET, 'q'),
+            'member_role' => Request::oneOf($_GET, 'member_role', array_merge(['all'], array_keys(MemberModel::ROLES)), 'all'),
+            'account_role' => Request::oneOf($_GET, 'account_role', ['all', 'privileged', 'none', 'webmaster', 'admin', 'moderator', 'treasurer', 'editor', 'member'], 'all'),
+            'housing' => Request::oneOf($_GET, 'housing', ['all', 'assigned', 'unassigned'], 'all'),
+            'paye' => Request::oneOf($_GET, 'paye', ['all', 'oui', 'non', 'en_cours'], 'all'),
+        ];
+
+        $sort = Request::oneOf(
+            $_GET,
+            'sort',
+            ['name_asc', 'name_desc', 'joined_desc', 'joined_asc', 'member_role_asc', 'member_role_desc', 'account_role_asc', 'account_role_desc', 'housing_asc', 'housing_desc'],
+            'name_asc'
+        );
+
         View::render('admin/members/index', [
             'title' => 'Membres - Administration',
-            'members' => MemberModel::allWithActiveRentals(),
+            'members' => MemberModel::allWithActiveRentals($filters, $sort),
             'roles' => MemberModel::ROLES,
             'statuses' => MemberModel::STATUSES,
+            'userRoles' => UserModel::ROLES,
+            'filters' => $filters,
+            'sort' => $sort,
             'csrfToken' => Auth::csrfToken(),
         ], 'admin');
     }

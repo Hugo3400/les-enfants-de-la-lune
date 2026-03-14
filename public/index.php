@@ -105,6 +105,7 @@ $router->post('/admin/locations/{id}/assign', 'App\\Controllers\\AdminRentalCont
 $router->post('/admin/locations/{id}/release', 'App\\Controllers\\AdminRentalController@release');
 
 $router->get('/admin/comptabilite', 'App\\Controllers\\AdminAccountingController@index');
+$router->get('/admin/comptabilite/export.csv', 'App\\Controllers\\AdminAccountingController@exportCsv');
 $router->post('/admin/comptabilite', 'App\\Controllers\\AdminAccountingController@store');
 $router->post('/admin/comptabilite/{id}/status', 'App\\Controllers\\AdminAccountingController@setStatus');
 $router->post('/admin/comptabilite/{id}/delete', 'App\\Controllers\\AdminAccountingController@destroy');

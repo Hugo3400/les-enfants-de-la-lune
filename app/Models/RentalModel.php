@@ -110,7 +110,10 @@ final class RentalModel
                     mr.id AS assignment_id,
                     mr.member_id,
                     mr.assigned_at,
+                    mr.lease_duration_value,
+                    mr.lease_duration_unit,
                     mr.notes AS assignment_notes,
+                    m.paye,
                     m.first_name,
                     m.last_name
              FROM rentals r

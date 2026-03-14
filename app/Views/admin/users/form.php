@@ -41,7 +41,7 @@
           <?php endforeach; ?>
         </select>
         <?php if ($isSelf): ?>
-          <input type="hidden" name="role" value="<?= htmlspecialchars((string) ($editUser['role'] ?? 'admin')) ?>">
+          <input type="hidden" name="role" value="<?= htmlspecialchars((string) ($editUser['role'] ?? 'webmaster')) ?>">
           <small style="color:#8a8a8a;">Vous ne pouvez pas modifier votre propre rôle.</small>
         <?php endif; ?>
       </label>

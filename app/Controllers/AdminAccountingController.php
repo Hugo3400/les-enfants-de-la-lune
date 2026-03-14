@@ -19,6 +19,7 @@ final class AdminAccountingController
         $entryType = Request::oneOf($_GET, 'type', ['all', 'income', 'expense'], 'all');
         $status = Request::oneOf($_GET, 'status', ['all', 'draft', 'validated'], 'all');
         $paymentMethod = Request::oneOf($_GET, 'payment_method', ['all', 'transfer', 'cash', 'card', 'check', 'other'], 'all');
+        $partnerTag = Request::oneOf($_GET, 'partner_tag', ['all', 'classic', 'yellow', 'rex', 'mojito', 'seaton', 'none'], 'all');
         $accountCode = Request::str($_GET, 'account_code', 'all');
         if ($accountCode === '') {
             $accountCode = 'all';
@@ -30,6 +31,7 @@ final class AdminAccountingController
             'status' => $status,
             'payment_method' => $paymentMethod,
             'account_code' => $accountCode,
+            'partner_tag' => $partnerTag,
         ];
 
         $entries = AccountingModel::filtered($filters, 500);
@@ -58,10 +60,52 @@ final class AdminAccountingController
             'weeklyBalances' => AccountingModel::weeklyBalances(12, $status),
             'accounts' => $accounts,
             'paymentMethods' => $this->paymentMethods(),
+            'partnerOptions' => $this->partnerOptions(),
             'pageStyles' => ['modules/accounting.css'],
             'filters' => $filters,
             'csrfToken' => Auth::csrfToken(),
         ], 'admin');
+    }
+
+    public function exportCsv(): void
+    {
+        Auth::requirePermission('accounting.view');
+
+        $filters = [
+            'week' => Request::str($_GET, 'week'),
+            'type' => Request::oneOf($_GET, 'type', ['all', 'income', 'expense'], 'all'),
+            'status' => Request::oneOf($_GET, 'status', ['all', 'draft', 'validated'], 'all'),
+            'payment_method' => Request::oneOf($_GET, 'payment_method', ['all', 'transfer', 'cash', 'card', 'check', 'other'], 'all'),
+            'account_code' => Request::str($_GET, 'account_code', 'all'),
+            'partner_tag' => Request::oneOf($_GET, 'partner_tag', ['all', 'classic', 'yellow', 'rex', 'mojito', 'seaton', 'none'], 'all'),
+        ];
+
+        $entries = AccountingModel::filtered($filters, 3000);
+
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="comptabilite-export-' . date('Ymd-His') . '.csv"');
+
+        $out = fopen('php://output', 'wb');
+        if ($out === false) {
+            return;
+        }
+
+        fputcsv($out, ['id', 'date', 'type', 'statut', 'compte', 'paiement', 'partenaire', 'libelle', 'montant', 'notes'], ';');
+        foreach ($entries as $entry) {
+            fputcsv($out, [
+                (int) ($entry['id'] ?? 0),
+                (string) ($entry['entry_date'] ?? ''),
+                (string) ($entry['entry_type'] ?? ''),
+                (string) ($entry['entry_status'] ?? ''),
+                (string) ($entry['account_code'] ?? ''),
+                (string) ($entry['payment_method'] ?? ''),
+                (string) ($entry['partner_tag'] ?? 'none'),
+                (string) ($entry['label'] ?? ''),
+                number_format((float) ($entry['amount'] ?? 0), 2, '.', ''),
+                (string) ($entry['notes'] ?? ''),
+            ], ';');
+        }
+        fclose($out);
     }
 
     public function store(): void
@@ -158,6 +202,10 @@ final class AdminAccountingController
             'entry_type' => $entryType,
             'account_code' => $accountCode,
             'payment_method' => $paymentMethod,
+            'partner_tag' => $this->inferPartnerTag(
+                Request::oneOf($_POST, 'partner_tag', ['none', 'classic', 'yellow', 'rex', 'mojito', 'seaton'], 'none'),
+                Request::str($_POST, 'label')
+            ),
             'reference' => Request::str($_POST, 'reference'),
             'entry_status' => $entryStatus,
             'label' => Request::str($_POST, 'label'),
@@ -194,5 +242,43 @@ final class AdminAccountingController
             'check' => 'Chèque',
             'other' => 'Autre',
         ];
+    }
+
+    private function partnerOptions(): array
+    {
+        return [
+            'none' => 'Aucun',
+            'classic' => 'Classic Bikes',
+            'yellow' => 'Yellow Jack',
+            'rex' => 'Rex',
+            'mojito' => 'Mojito',
+            'seaton' => 'Seaton',
+        ];
+    }
+
+    private function inferPartnerTag(string $partnerTag, string $label): string
+    {
+        if ($partnerTag !== 'none') {
+            return $partnerTag;
+        }
+
+        $needle = mb_strtolower($label);
+        if (str_contains($needle, 'classic')) {
+            return 'classic';
+        }
+        if (str_contains($needle, 'yellow')) {
+            return 'yellow';
+        }
+        if (str_contains($needle, 'rex')) {
+            return 'rex';
+        }
+        if (str_contains($needle, 'mojito')) {
+            return 'mojito';
+        }
+        if (str_contains($needle, 'seaton')) {
+            return 'seaton';
+        }
+
+        return 'none';
     }
 }

@@ -51,9 +51,132 @@
 	max-width: 760px;
 }
 
+.admin-rental-form-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+	gap: 16px;
+	align-items: start;
+}
+
+.admin-rental-form-card,
+.admin-rental-help-card,
+.admin-rental-assign-section,
+.admin-rental-history-section {
+	padding: 20px;
+	border: 1px solid rgba(196, 180, 255, 0.18);
+	border-radius: 14px;
+	background: linear-gradient(160deg, rgba(41, 34, 81, 0.92), rgba(32, 27, 64, 0.94));
+}
+
+.admin-rental-main-form {
+	gap: 16px;
+	max-width: 100% !important;
+}
+
+.admin-rental-form-block {
+	padding: 14px;
+	border-radius: 12px;
+	border: 1px solid rgba(143, 134, 248, 0.22);
+	background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-rental-form-block h2 {
+	margin: 0 0 12px;
+	font-size: .92rem;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+	color: #c7c2ff;
+}
+
+.admin-rental-two-cols {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
 .admin-rental-form-page textarea[name="description"] {
 	min-height: 160px;
 	line-height: 1.55;
+}
+
+.admin-rental-help-card h2 {
+	margin-top: 0;
+	font-size: 1rem;
+}
+
+.admin-rental-help-card ul {
+	margin: 0;
+	padding-left: 18px;
+	display: grid;
+	gap: 8px;
+	font-size: .88rem;
+	color: #d7d0ff;
+}
+
+.admin-rental-help-chip-wrap {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-top: 14px;
+}
+
+.admin-rental-assign-section,
+.admin-rental-history-section {
+	margin-top: 18px;
+}
+
+.admin-rental-assign-section h2,
+.admin-rental-history-section h2 {
+	margin-top: 0;
+	margin-bottom: 14px;
+	font-size: 1rem;
+}
+
+.assignment-current {
+	background: rgba(78, 232, 153, 0.08);
+	border: 1px solid rgba(78, 232, 153, 0.24);
+	color: #f2efff;
+	padding: 14px 16px;
+	border-radius: 10px;
+	margin-bottom: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.assignment-current span {
+	opacity: .75;
+	margin-left: 6px;
+}
+
+.assignment-current small {
+	display: block;
+	opacity: .7;
+	margin-top: 4px;
+}
+
+.admin-rental-hint {
+	margin: 0 0 12px;
+	color: #c7c2ff;
+}
+
+.admin-rental-assign-form {
+	gap: 12px;
+}
+
+.btn-danger {
+	background: #ff5d8f;
+	color: #fff;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.btn-danger:hover {
+	filter: brightness(1.06);
 }
 
 @media (max-width: 900px) {
@@ -63,5 +186,13 @@
 
 	.admin-rental-form-page .form-grid {
 		max-width: 100%;
+	}
+
+	.admin-rental-form-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-rental-two-cols {
+		grid-template-columns: 1fr;
 	}
 }

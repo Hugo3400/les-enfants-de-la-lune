@@ -33,5 +33,8 @@
 
     <?= $content ?>
   </main>
+  <footer class="site-footer wrap member-footer">
+    <small>© <?= date('Y') ?> Les Enfants de la Lune · Espace membre · Développé par <a href="https://nexadev.fr/" target="_blank" rel="noopener">NexaDev</a></small>
+  </footer>
 </body>
 </html>

@@ -9,14 +9,17 @@ final class UserModel
 {
     /** Rôles utilisateurs du système */
     public const ROLES = [
-        'admin'      => 'Administrateur',
-        'moderator'  => 'Modérateur',
-        'editor'     => 'Éditeur',
+        'webmaster'  => 'Webmaster',
+        'admin'      => 'Président',
+        'moderator'  => 'Vice président',
+        'treasurer'  => 'Trésorier',
+        'editor'     => 'Secrétaire',
         'member'     => 'Membre',
     ];
 
     /** Permissions par rôle (cumulatives) */
     public const PERMISSIONS = [
+        'webmaster' => ['*'],
         'admin'     => ['*'],
         'moderator' => ['dashboard', 'articles', 'articles.create', 'articles.edit', 'articles.delete',
                         'events', 'events.create', 'events.edit', 'events.delete',
@@ -24,6 +27,7 @@ final class UserModel
                         'rentals', 'rentals.create', 'rentals.edit', 'rentals.delete',
                         'members', 'members.view',
                         'accounting.view'],
+        'treasurer' => ['dashboard', 'members.view', 'accounting.view', 'accounting.manage'],
         'editor'    => ['dashboard', 'articles', 'articles.create', 'articles.edit',
                         'events', 'events.create', 'events.edit',
                         'messages', 'members.view'],

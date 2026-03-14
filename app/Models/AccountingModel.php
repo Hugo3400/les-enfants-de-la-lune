@@ -30,6 +30,7 @@ final class AccountingModel
                 entry_type,
                 account_code,
                 payment_method,
+                partner_tag,
                 reference,
                 entry_status,
                 validated_at,
@@ -42,6 +43,7 @@ final class AccountingModel
                 :entry_type,
                 :account_code,
                 :payment_method,
+                :partner_tag,
                 :reference,
                 :entry_status,
                 :validated_at,
@@ -56,6 +58,7 @@ final class AccountingModel
             ':entry_type' => $data['entry_type'],
             ':account_code' => $data['account_code'],
             ':payment_method' => $data['payment_method'],
+            ':partner_tag' => $data['partner_tag'] ?? 'none',
             ':reference' => $data['reference'],
             ':entry_status' => $status,
             ':validated_at' => $validatedAt,
@@ -286,6 +289,12 @@ final class AccountingModel
         if ($accountCode !== '' && $accountCode !== 'all') {
             $conditions[] = 'account_code = :account_code';
             $params[':account_code'] = $accountCode;
+        }
+
+        $partnerTag = trim((string) ($filters['partner_tag'] ?? 'all'));
+        if (in_array($partnerTag, ['classic', 'yellow', 'rex', 'mojito', 'seaton', 'none'], true)) {
+            $conditions[] = 'partner_tag = :partner_tag';
+            $params[':partner_tag'] = $partnerTag;
         }
 
         $week = trim((string) ($filters['week'] ?? ''));

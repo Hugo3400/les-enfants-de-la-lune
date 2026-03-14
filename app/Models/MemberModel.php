@@ -9,11 +9,10 @@ final class MemberModel
 {
     /** Rôles possibles pour un membre de l'association */
     public const ROLES = [
-        'president'  => 'Président(e)',
-        'tresorier'  => 'Trésorier(ère)',
+        'president'  => 'Président',
+        'vice_president' => 'Vice président',
+        'tresorier'  => 'Trésorier',
         'secretaire' => 'Secrétaire',
-        'bureau'     => 'Membre du bureau',
-        'benevole'   => 'Bénévole',
         'membre'     => 'Membre',
     ];
 
@@ -29,17 +28,80 @@ final class MemberModel
         return $pdo->query('SELECT * FROM members ORDER BY joined_at ASC, last_name ASC')->fetchAll();
     }
 
-    /** Liste complète avec logement actif (JOIN) */
-    public static function allWithActiveRentals(): array
+    /** Liste complète avec logement actif (JOIN), filtres et tri */
+    public static function allWithActiveRentals(array $filters = [], string $sort = 'name_asc'): array
     {
         $pdo = Database::connection();
-        return $pdo->query(
-            'SELECT m.*, r.title AS rental_title, r.location_label AS rental_location
-             FROM members m
-             LEFT JOIN member_rentals mr ON mr.member_id = m.id AND mr.status = "active"
-             LEFT JOIN rentals r ON r.id = mr.rental_id
-             ORDER BY m.joined_at ASC, m.last_name ASC'
-        )->fetchAll();
+        $where = [];
+        $params = [];
+
+        $search = trim((string) ($filters['q'] ?? ''));
+        if ($search !== '') {
+            $where[] = '(LOWER(COALESCE(m.first_name, "")) LIKE :search
+                OR LOWER(COALESCE(m.last_name, "")) LIKE :search
+                OR LOWER(COALESCE(m.email, "")) LIKE :search
+                OR LOWER(COALESCE(m.phone, "")) LIKE :search)';
+            $params[':search'] = '%' . mb_strtolower($search) . '%';
+        }
+
+        $memberRole = trim((string) ($filters['member_role'] ?? 'all'));
+        if ($memberRole !== 'all' && array_key_exists($memberRole, self::ROLES)) {
+            $where[] = 'm.role = :member_role';
+            $params[':member_role'] = $memberRole;
+        }
+
+        $accountRole = trim((string) ($filters['account_role'] ?? 'all'));
+        if ($accountRole === 'none') {
+            $where[] = 'm.user_id IS NULL';
+        } elseif ($accountRole === 'privileged') {
+            $where[] = 'u.role IN ("webmaster", "admin", "moderator", "treasurer", "editor")';
+        } elseif (in_array($accountRole, ['webmaster', 'admin', 'moderator', 'treasurer', 'editor', 'member'], true)) {
+            $where[] = 'u.role = :account_role';
+            $params[':account_role'] = $accountRole;
+        }
+
+        $housing = trim((string) ($filters['housing'] ?? 'all'));
+        if ($housing === 'assigned') {
+            $where[] = 'r.id IS NOT NULL';
+        } elseif ($housing === 'unassigned') {
+            $where[] = 'r.id IS NULL';
+        }
+
+        $payment = trim((string) ($filters['paye'] ?? 'all'));
+        if (in_array($payment, ['oui', 'non', 'en_cours'], true)) {
+            $where[] = 'm.paye = :paye';
+            $params[':paye'] = $payment;
+        }
+
+        $orderBy = match ($sort) {
+            'name_desc' => 'm.last_name DESC, m.first_name DESC',
+            'joined_desc' => 'm.joined_at DESC, m.last_name ASC, m.first_name ASC',
+            'joined_asc' => 'm.joined_at ASC, m.last_name ASC, m.first_name ASC',
+            'member_role_asc' => 'm.role ASC, m.last_name ASC, m.first_name ASC',
+            'member_role_desc' => 'm.role DESC, m.last_name ASC, m.first_name ASC',
+            'account_role_asc' => 'u.role ASC, m.last_name ASC, m.first_name ASC',
+            'account_role_desc' => 'u.role DESC, m.last_name ASC, m.first_name ASC',
+            'housing_asc' => 'r.title ASC, m.last_name ASC, m.first_name ASC',
+            'housing_desc' => 'r.title DESC, m.last_name ASC, m.first_name ASC',
+            default => 'm.last_name ASC, m.first_name ASC',
+        };
+
+        $sql = 'SELECT m.*, r.title AS rental_title, r.location_label AS rental_location,
+                       u.role AS linked_user_role, u.is_active AS linked_user_active
+                FROM members m
+                LEFT JOIN member_rentals mr ON mr.member_id = m.id AND mr.status = "active"
+                LEFT JOIN rentals r ON r.id = mr.rental_id
+                LEFT JOIN users u ON u.id = m.user_id';
+
+        if ($where !== []) {
+            $sql .= ' WHERE ' . implode(' AND ', $where);
+        }
+
+        $sql .= ' ORDER BY ' . $orderBy;
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
     }
 
     public static function allActive(): array
@@ -66,6 +128,35 @@ final class MemberModel
         $stmt->execute([':user_id' => $userId]);
         $row = $stmt->fetch();
         return $row !== false ? $row : null;
+    }
+
+    public static function findByEmail(string $email): ?array
+    {
+        $normalizedEmail = mb_strtolower(trim($email));
+        if ($normalizedEmail === '') {
+            return null;
+        }
+
+        $pdo = Database::connection();
+        $stmt = $pdo->prepare('SELECT * FROM members WHERE LOWER(COALESCE(email, "")) = :email LIMIT 1');
+        $stmt->execute([':email' => $normalizedEmail]);
+        $row = $stmt->fetch();
+        return $row !== false ? $row : null;
+    }
+
+    public static function attachUser(int $memberId, int $userId): void
+    {
+        $pdo = Database::connection();
+        $stmt = $pdo->prepare(
+            'UPDATE members
+             SET user_id = :user_id,
+                 updated_at = CURRENT_TIMESTAMP
+             WHERE id = :id'
+        );
+        $stmt->execute([
+            ':id' => $memberId,
+            ':user_id' => $userId,
+        ]);
     }
 
     /** Logements attribués au membre (actifs et historique) */

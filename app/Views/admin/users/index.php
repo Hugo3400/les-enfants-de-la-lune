@@ -69,15 +69,23 @@
       <h3 style="margin:0 0 12px;">Niveaux de permission</h3>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
         <div style="padding:14px;background:#faf8f5;border-radius:10px;border:1px solid rgba(0,0,0,0.06);">
-          <strong style="color:#6957d8;">Administrateur</strong>
+          <strong style="color:#6957d8;">Webmaster</strong>
           <p style="font-size:.82rem;margin:6px 0 0;">Accès complet à toutes les fonctionnalités, gestion des comptes et des membres.</p>
         </div>
         <div style="padding:14px;background:#faf8f5;border-radius:10px;border:1px solid rgba(0,0,0,0.06);">
-          <strong style="color:#1e2a3a;">Modérateur</strong>
+          <strong style="color:#1e2a3a;">Président</strong>
+          <p style="font-size:.82rem;margin:6px 0 0;">Accès complet à toutes les fonctionnalités, gestion des comptes et des membres.</p>
+        </div>
+        <div style="padding:14px;background:#faf8f5;border-radius:10px;border:1px solid rgba(0,0,0,0.06);">
+          <strong style="color:#1e2a3a;">Vice président</strong>
           <p style="font-size:.82rem;margin:6px 0 0;">Articles, événements, locations, messages et consultation comptabilité.</p>
         </div>
         <div style="padding:14px;background:#faf8f5;border-radius:10px;border:1px solid rgba(0,0,0,0.06);">
-          <strong style="color:#1e2a3a;">Éditeur</strong>
+          <strong style="color:#1e2a3a;">Trésorier</strong>
+          <p style="font-size:.82rem;margin:6px 0 0;">Accès au tableau de bord, aux membres et à la comptabilité.</p>
+        </div>
+        <div style="padding:14px;background:#faf8f5;border-radius:10px;border:1px solid rgba(0,0,0,0.06);">
+          <strong style="color:#1e2a3a;">Secrétaire</strong>
           <p style="font-size:.82rem;margin:6px 0 0;">Articles et événements (création / modification) + consultation messages.</p>
         </div>
         <div style="padding:14px;background:#faf8f5;border-radius:10px;border:1px solid rgba(0,0,0,0.06);">

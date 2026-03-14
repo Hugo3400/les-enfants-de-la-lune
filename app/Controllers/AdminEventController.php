@@ -18,6 +18,7 @@ final class AdminEventController
             'title' => 'Événements - Administration',
             'events' => EventModel::all(),
             'csrfToken' => Auth::csrfToken(),
+            'pageStyles' => ['modules/events.css'],
         ], 'admin');
     }
 
@@ -28,6 +29,7 @@ final class AdminEventController
         View::render('admin/events/form', [
             'title' => 'Nouvel événement - Administration',
             'csrfToken' => Auth::csrfToken(),
+            'pageStyles' => ['modules/events.css'],
             'event' => [
                 'id' => null,
                 'title' => '',
@@ -79,6 +81,7 @@ final class AdminEventController
         View::render('admin/events/form', [
             'title' => 'Modifier événement - Administration',
             'csrfToken' => Auth::csrfToken(),
+            'pageStyles' => ['modules/events.css'],
             'event' => $event,
             'formAction' => '/admin/evenements/' . (int) $event['id'] . '/update',
         ], 'admin');

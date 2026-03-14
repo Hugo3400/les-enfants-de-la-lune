@@ -67,7 +67,7 @@
   </main>
 
   <footer class="site-footer wrap">
-    <small>© <?= date('Y') ?> Les Enfants de la Lune · Association solidaire à Blaine County</small>
+    <small>© <?= date('Y') ?> Les Enfants de la Lune · Association solidaire à Blaine County · Développé par <a href="https://nexadev.fr/" target="_blank" rel="noopener">NexaDev</a></small>
   </footer>
   <?php if ($mainJsVersion !== null): ?>
     <script src="/public/assets/js/main-nav.js?v=<?= urlencode($mainJsVersion) ?>" defer></script>
