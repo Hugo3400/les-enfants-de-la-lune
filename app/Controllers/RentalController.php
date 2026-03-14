@@ -12,7 +12,7 @@ final class RentalController
     {
         View::render('rentals/index', [
             'title' => 'Locations - Les Enfants de la Lune',
-            'rentals' => RentalModel::all(),
+            'rentals' => RentalModel::allAvailable(),
         ]);
     }
 }

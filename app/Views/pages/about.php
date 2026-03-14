@@ -102,7 +102,7 @@
   <section class="card home-cta">
     <h2>Envie de nous rejoindre ?</h2>
     <p>Que vous souhaitiez rejoindre l'aventure, proposer un partenariat ou simplement en savoir plus, n'hésitez pas à nous écrire.</p>
-    <div class="actions-row" style="margin-top: 12px;">
+    <div class="actions-row">
       <a class="button-link" href="/contact">Nous contacter</a>
       <a class="button-secondary" href="/actualites">Nos actualités</a>
     </div>
